@@ -28,13 +28,26 @@ const createUser = async ({username, password}) => {
   }
 }
 
+const getUserByUsername = async (username) => {
+  try{
+    const { rows: [user] } = await client.query(
+      `
+      SELECT * FROM users
+      where username = $1;
+      `, [username]
+    )
+    return user
+  } catch (error){
+    throw error;
+  }
+}
+
 async function getAllUsers() {
   /* this adapter should fetch a list of users from your db */
 }
 
 module.exports = {
-  // add your database adapter fns here
   createUser,
   getAllUsers,
-  
+  getUserByUsername
 };
