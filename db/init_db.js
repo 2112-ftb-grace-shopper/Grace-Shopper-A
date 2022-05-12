@@ -81,7 +81,7 @@ async function createInitialProducts() {
     const productsToCreate = [
       { id: "3N1CN7APXEL766737",model:"Sonata",make:"Hyundai",year:2007,color:"Pink",min_city_mpg:75,max_city_mpg:36,min_hwy_mpg:12,max_hwy_mpg:59 },
       { id: "1C4SDHCT9CC132954",model:"Expedition EL",make:"Ford",year:2009,color:"Pink",min_city_mpg:98,max_city_mpg:7,min_hwy_mpg:11,max_hwy_mpg:80 },
-      { id: "1G4PP5SK6D4703294",model:"CR-V",make="Honda",year=2007,color="Indigo",min_city_mpg=28,max_city_mpg=17,min_hwy_mpg=29,max_hwy_mpg=2 },
+      { id: "1G4PP5SK6D4703294",model:"CR-V",make:"Honda",year:2007,color:"Indigo",min_city_mpg:28,max_city_mpg:17,min_hwy_mpg:29,max_hwy_mpg:2 },
       { id:"3VW4T7AT6EM514155",model:"Sunfire",make:"Pontiac",year:1996,color:"Indigo",min_city_mpg:47,max_city_mpg:74,min_hwy_mpg:61,max_hwy_mpg:70 },
       { id:"KNADH4A31B6551156",model:"Bronco II",make:"Ford",year:1985,color:"Teal",min_city_mpg:78,max_city_mpg:25,min_hwy_mpg:67,max_hwy_mpg:66 },
       { id:"WAUFFAFCXDN772690",model:"Escalade EXT",make:"Cadillac",year:2006,color:"Red",min_city_mpg:4,max_city_mpg:29,min_hwy_mpg:61,max_hwy_mpg:32 },
