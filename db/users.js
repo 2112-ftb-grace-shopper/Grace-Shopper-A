@@ -28,13 +28,9 @@ const createUser = async ({username, password}) => {
   }
 }
 
-
-
-
 async function getAllUsers() {
   /* this adapter should fetch a list of users from your db */
 }
-
 
 module.exports = {
   // add your database adapter fns here
