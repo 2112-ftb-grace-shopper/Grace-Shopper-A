@@ -6,6 +6,7 @@ async function dropTables() {
 
     try {
       await client.query(`
+        DROP TABLE IF EXISTS cart;
         DROP TABLE IF EXISTS products;
         DROP TABLE IF EXISTS admin_users
         DROP TABLE IF EXISTS users;
@@ -40,10 +41,17 @@ async function createTables() {
         make VARCHAR(255) UNIQUE NOT NULL,
         year INTEGER,
         color VARCHAR(255) UNIQUE NOT NULL,
+        cost INTEGER,
         min_city_mpg INTEGER,
         max_city_mpg INTEGER,
         min_hwy_mpg INTEGER,
         max_hwy_mpg INTEGER,
+      );
+      CREATE TABLE cart (
+        id SERIAL PRIMARY KEY,
+        "productId" INTEGER REFERENCES products(id),
+        "shopperId" INTEGER REFERENCES users(id),
+        total INTEGER,
       );
       `);
       console.log('Finished building the tables!');
@@ -79,16 +87,16 @@ async function createInitialProducts() {
     console.log('Starting to create products...');
 
     const productsToCreate = [
-      { id: "3N1CN7APXEL766737",model:"Sonata",make:"Hyundai",year:2007,color:"Pink",min_city_mpg:75,max_city_mpg:36,min_hwy_mpg:12,max_hwy_mpg:59 },
-      { id: "1C4SDHCT9CC132954",model:"Expedition EL",make:"Ford",year:2009,color:"Pink",min_city_mpg:98,max_city_mpg:7,min_hwy_mpg:11,max_hwy_mpg:80 },
-      { id: "1G4PP5SK6D4703294",model:"CR-V",make:"Honda",year:2007,color:"Indigo",min_city_mpg:28,max_city_mpg:17,min_hwy_mpg:29,max_hwy_mpg:2 },
-      { id:"3VW4T7AT6EM514155",model:"Sunfire",make:"Pontiac",year:1996,color:"Indigo",min_city_mpg:47,max_city_mpg:74,min_hwy_mpg:61,max_hwy_mpg:70 },
-      { id:"KNADH4A31B6551156",model:"Bronco II",make:"Ford",year:1985,color:"Teal",min_city_mpg:78,max_city_mpg:25,min_hwy_mpg:67,max_hwy_mpg:66 },
-      { id:"WAUFFAFCXDN772690",model:"Escalade EXT",make:"Cadillac",year:2006,color:"Red",min_city_mpg:4,max_city_mpg:29,min_hwy_mpg:61,max_hwy_mpg:32 },
-      { id:"YV426MDB8F2459183",model:"A3",make:"Audi",year:2010,color:"Mauv",min_city_mpg:2,max_city_mpg:10,min_hwy_mpg:15,max_hwy_mpg:84 },
-      { id:"WAUEH94F67N950634",model:"RX",make:"Lexus",year:2002,color:"Teal",min_city_mpg:5,max_city_mpg:84,min_hwy_mpg:46,max_hwy_mpg:87 },
-      { id:"WBAYP9C57FD001512",model:"Swift",make:"Suzuki",year:1997,color:"Blue",min_city_mpg:76,max_city_mpg:65,min_hwy_mpg:79,max_hwy_mpg:82 },
-      { id:"KNADM5A35F6290945",model:"NSX",make:"Acura",year:2003,color:"Crimson",min_city_mpg:62,max_city_mpg:87,min_hwy_mpg:40,max_hwy_mpg:35 },
+      { id:"JA32X8HW0CU247445",model:"Rodeo",make:"Isuzu",year:1995,color:"Crimson",min_city_mpg:10,max_city_mpg:33,min_hwy_mpg:22,max_hwy_mpg:9,cost:12096 },
+      { id:"5N1AN0NU9CC188162",model:"7 Series",make:"BMW",year:2006,color:"Turquoise",min_city_mpg:28,max_city_mpg:21,min_hwy_mpg:33,max_hwy_mpg:14,cost:42159 },
+      { id:"5FNRL3H22AB373906",model:"SVX",make:"Subaru",year:1996,color:"Purple",min_city_mpg:27,max_city_mpg:19,min_hwy_mpg:29,max_hwy_mpg:16,cost:6109 },
+      { id:"WAUUL78E28A105837",model:"Malibu",make:"Chevrolet",year:2007,color:"Teal",min_city_mpg:23,max_city_mpg:28,min_hwy_mpg:22,max_hwy_mpg:18,cost:44962 },
+      { id:"1GD21XEG2FZ577746",model:"Lancer",make:"Mitsubishi",year:2003,color:"Violet",min_city_mpg:14,max_city_mpg:32,min_hwy_mpg:31,max_hwy_mpg:29,cost:6539 },
+      { id:"1VWAP7A37EC620803",model:"Maxima",make:"Nissan",year:2012,color:"Khaki",min_city_mpg:34,max_city_mpg:24,min_hwy_mpg:20,max_hwy_mpg:32,cost:46130 },
+      { id:"1GYFK43868R553802",model:"QX56",make:"Infiniti",year:2012,color:"Orange",min_city_mpg:18,max_city_mpg:12,min_hwy_mpg:8,max_hwy_mpg:23,cost:44518 },
+      { id:"3VW467AT4DM644036",model:"E-Series",make:"Ford",year:2004,color:"Maroon",min_city_mpg:14,max_city_mpg:31,min_hwy_mpg:9,max_hwy_mpg:8,cost:17688 },
+      { id:"1FMJK1FT4FE520230",model:"Camaro",make:"Chevrolet",year:1973,color:"Orange",min_city_mpg:18,max_city_mpg:14,min_hwy_mpg:13,max_hwy_mpg:14,cost:25712 },
+      { id:"WAULC58E94A755419",model:"Talon",make:"Eagle",year:1996,color:"Violet",min_city_mpg:9,max_city_mpg:14,min_hwy_mpg:11,max_hwy_mpg:29,cost:23964 },
     ]
     const products = await Promise.all(productsToCreate.map(createProduct));
 
