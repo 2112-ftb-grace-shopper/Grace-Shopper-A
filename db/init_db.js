@@ -28,8 +28,8 @@ async function createTables() {
       CREATE TABLE admin_users (
         id SERIAL PRIMARY KEY,
         username VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL
-        adminStatus BOOLEAN DEFAULT false
+        password VARCHAR(255) NOT NULL,
+        "adminStatus" BOOLEAN DEFAULT false
       );
       CREATE TABLE users (
         id SERIAL PRIMARY KEY,
@@ -46,13 +46,13 @@ async function createTables() {
         min_city_mpg INTEGER,
         max_city_mpg INTEGER,
         min_hwy_mpg INTEGER,
-        max_hwy_mpg INTEGER,
+        max_hwy_mpg INTEGER
       );
       CREATE TABLE cart (
         id SERIAL PRIMARY KEY,
         "productId" INTEGER REFERENCES products(id),
         "shopperId" INTEGER REFERENCES users(id),
-        total INTEGER,
+        total INTEGER
       );
       `);
       console.log('Finished building the tables!');
