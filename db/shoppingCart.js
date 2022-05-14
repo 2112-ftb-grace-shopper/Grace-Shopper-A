@@ -18,7 +18,7 @@ const getShoppingCartItemsByUser = async (id) => {
 
 
 
-const addProductsToCart = async ( {productId, shopperId, total } ) => {
+const attachProductsToCart = async ( {productId, shopperId, total } ) => {
     try{
 
         const { rows: [product] } = await client.query(
@@ -37,7 +37,7 @@ const addProductsToCart = async ( {productId, shopperId, total } ) => {
 
 
 const destroyShoppingCartItem = async (id) => {
-    try{
+    try{ 
         const {rows: [product] } = await client.query(
             `
             DELETE FROM cart

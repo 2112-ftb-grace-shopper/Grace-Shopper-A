@@ -1,14 +1,15 @@
-const { client } = require('./client');
+const  client  = require('./client');
 const { createUser } = require('./users')
 
 async function dropTables() {
   console.log('Dropping All Tables...');
 
     try {
+      console.log("GETTING INTO TRY");
       await client.query(`
         DROP TABLE IF EXISTS cart;
         DROP TABLE IF EXISTS products;
-        DROP TABLE IF EXISTS admin_users
+        DROP TABLE IF EXISTS admin_users;
         DROP TABLE IF EXISTS users;
         `);
 
