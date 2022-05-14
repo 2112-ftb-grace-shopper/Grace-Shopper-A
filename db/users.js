@@ -1,7 +1,6 @@
 // grab our db client connection to use with our adapters
-const client = require('./client');
+const client = require('../client');
 const bcrypt = require('bcrypt');
-
 // function to create a user
 
 const createUser = async ({username, password}) => {
@@ -28,19 +27,7 @@ const createUser = async ({username, password}) => {
   }
 }
 
-const getUserByUsername = async (username) => {
-  try{
-    const { rows: [user] } = await client.query(
-      `
-      SELECT * FROM users
-      where username = $1;
-      `, [username]
-    )
-    return user
-  } catch (error){
-    throw error;
-  }
-}
+
 
 async function getUser({username, password}) {
   try {
@@ -68,7 +55,7 @@ async function getUserById(id) {
       const {rows: [user]} = await client.query(`
           SELECT * FROM users WHERE id = ($1);
       `, [id])
-
+   
       delete user.password;
       return user
   } catch (error) {
@@ -85,10 +72,31 @@ async function getAllUsers() {
   /* this adapter should fetch a list of users from your db */
 }
 
+
+
+
+// function to create a user
+
+const getUserByUsername = async (username) => {
+  try{
+    const { rows: [user] } = await client.query(
+      `
+      SELECT * FROM users
+      where username = $1;
+      `, [username]
+    )
+    return user
+  } catch (error){
+    throw error;
+  }
+}
+
+
 module.exports = {
   createUser,
   getAllUsers,
   getUserByUsername,
-  getUser,
-  getUserById
+  getUserById,
+  getUser
+
 };
