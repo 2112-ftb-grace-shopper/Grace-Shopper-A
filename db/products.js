@@ -1,3 +1,4 @@
+
 async function getProductById(id){
     try {
         const {rows:[product]} = await client.query(`
@@ -10,6 +11,7 @@ async function getProductById(id){
     }
 
 }
+
 
 
 
@@ -48,4 +50,8 @@ async function updateProduct ({id, name, description, price}) {
     } catch (error) {
         throw error;
     }
+
+} 
+
 }
+
