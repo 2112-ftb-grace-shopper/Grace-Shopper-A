@@ -105,7 +105,7 @@ async function updateProduct ({id, name, description, price}) {
         throw error;
     }
 
-} 
+}
 
 module.exports = {
     createProduct,
