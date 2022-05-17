@@ -1,5 +1,7 @@
 const  client  = require('./client');
 const { createUser } = require('./users')
+const { createProduct } = require('./products')
+
 
 async function dropTables() {
   console.log('Dropping All Tables...');
@@ -39,9 +41,9 @@ async function createTables() {
       CREATE TABLE products (
         id SERIAL PRIMARY KEY,
         model VARCHAR(255) UNIQUE NOT NULL,
-        make VARCHAR(255) UNIQUE NOT NULL,
+        make VARCHAR(255) NOT NULL,
         year INTEGER,
-        color VARCHAR(255) UNIQUE NOT NULL,
+        color VARCHAR(255) NOT NULL,
         cost INTEGER,
         min_city_mpg INTEGER,
         max_city_mpg INTEGER,
