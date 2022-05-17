@@ -1,5 +1,5 @@
 // Connect to DB
-const { Client } = require('pg');
+const  { Client }   = require('pg');
 
 // change the DB_NAME string to whatever your group decides on
 const DB_NAME = 'car-shopper-dev';
