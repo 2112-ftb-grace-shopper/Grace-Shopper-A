@@ -1,6 +1,7 @@
 const  client  = require('./client');
 
 
+// create products and return all
 const createProduct = async ( { 
     model,
     make,
@@ -13,7 +14,7 @@ const createProduct = async ( {
     max_hwy_mpg
 }) => {
     try{
-        const {rows: product} = await client.query(`
+        const {rows: [product]} = await client.query(`
         INSERT INTO products (model,
             make,
             year,
@@ -23,7 +24,8 @@ const createProduct = async ( {
             max_city_mpg,
             min_hwy_mpg,
             max_hwy_mpg)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        RETURNING *;
         `,[ model,
             make,
             year,
@@ -34,12 +36,15 @@ const createProduct = async ( {
             min_hwy_mpg,
             max_hwy_mpg])
 
+            // console.log("product", product)
             return product
+
     } catch(error){
         throw error
     }
 }
 
+// get all products in database
 const getAllProducts = async () => {
     try{
         const { rows:  products } = await client.query(`
@@ -52,7 +57,7 @@ const getAllProducts = async () => {
     }
 }
 
-
+// get products by specific id's
 async function getProductById(id){
     try {
         const {rows:[product]} = await client.query(`
@@ -68,7 +73,7 @@ async function getProductById(id){
 
 
 
-
+// update a products information
 async function updateProduct ({id, name, description, price}) {
     try {
         const fields = {};
