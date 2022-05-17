@@ -40,7 +40,7 @@ async function createTables() {
       );
       CREATE TABLE products (
         id SERIAL PRIMARY KEY,
-        model VARCHAR(255) UNIQUE NOT NULL,
+        model VARCHAR(255) NOT NULL,
         make VARCHAR(255) NOT NULL,
         year INTEGER,
         color VARCHAR(255) NOT NULL,
@@ -105,6 +105,7 @@ async function createInitialProducts() {
 
     console.log('products created:');
     console.log(products);
+    console.log(products[3].id)
 
     console.log('Finished creating products!');
   } catch (error) {
