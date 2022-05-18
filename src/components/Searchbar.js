@@ -1,10 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import '../style/Searchbar.css';
+import { Link } from 'react-router-dom';
 
 const Searchbar = () => {
 
     return (
+        <div>
+
         <span className='searchbar'>
             <select>
                 <option value='Make'>Make</option>
@@ -34,6 +36,9 @@ const Searchbar = () => {
                 <option value='MaxHwyMPG'>Max Hwy MPG</option>
             </select>
         </span>
+        <Link path='/Landingpage'> Back </Link>
+        </div>
+        
     )
 }
 
