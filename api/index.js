@@ -50,7 +50,8 @@ apiRouter.use((req, res, next) => {
 });
 
 // place your routers here
-
+const usersRouter = require('./users');
+apiRouter.use('/users', usersRouter);
 
 
 module.exports = apiRouter;
