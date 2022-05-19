@@ -9,28 +9,31 @@ const Landingpage = () => {
             <div>
                 <ul>
                     <li>
-                        <Link to= '/'> Landing page  -You are here</Link>
+                        
+                         <Link to ='/'>
+                             Landing page  -You are here
+                             </Link>
                     </li>
                     <li>
-                        <Link to='/Login'> Login Page </Link>
+                            <Link to='/login'> Login Page </Link> 
                     </li>
                     <li>
-                        <Link to='/Registerpage'>Register page</Link>
+                            <Link to='/register'>Register page</Link>
                     </li>
                     <li>
-                        <Link to='/Productpage'> Product Page </Link>
+                            <Link to ='/product'> Product Page </Link>    
                     </li>
                     <li>
-                        <Link to= '/Searchbar'> Search Bar </Link>
+                            <Link to= '/searchbar'> Search Bar </Link>
                     </li>
                     <li>
-                        <Link to= '/Shoppingcart'> Shopping Cart Page </Link>
+                            <Link to= '/shoppingcart'> Shopping Cart Page </Link>
                     </li>
                     <li>
-                        <Link to= '/MiscAPIpage'> Misc API display playground</Link>
+                            <Link to= '/miscAPIpage'> Misc API display playground</Link>
                     </li>
                     <li>
-                        <Link to= '/Adminpage'> Admin Page</Link>
+                            <Link to= '/adminpage'> Admin Page</Link>
                     </li>
                 </ul>
             </div>

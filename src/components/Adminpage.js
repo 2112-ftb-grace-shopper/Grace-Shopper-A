@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
  
 const Adminpage = () => {
     return (
-        <Link path='/src/components/Landingpage.js'>Back</Link>
+        <Link path='/Landingpage'>Back</Link>
     )
 }
 

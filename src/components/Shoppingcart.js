@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import '../style/Shoppingcart.css';
 
 const Shoppingcart = () => {
     return (
-        <Link path='/Landingpage'> Back </Link>
+        <Link to='/Landingpage'> Back </Link>
     )
 }
 

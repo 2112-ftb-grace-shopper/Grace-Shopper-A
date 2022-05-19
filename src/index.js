@@ -6,12 +6,11 @@ import { App } from './components';
 // place them in the src/style directory, and import them like this:
 import './style/index.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
    
   </React.StrictMode>
-);
+, document.getElementById("root"));

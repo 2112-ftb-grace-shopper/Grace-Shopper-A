@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import '../style/Login.css';
 
@@ -33,6 +33,7 @@ const Login = () => {
         // <button
         //     onClick={submit}>Login</button>
         // <br />
+        // </form>
 
       <Link to="/Registerpage">
         <a>
@@ -41,7 +42,6 @@ const Login = () => {
     </Link>
 
     
-    // </form>
   );
 }
 

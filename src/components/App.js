@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  Route } from 'react-router-dom';
+import {  Route, Switch, NavLink } from 'react-router-dom';
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
@@ -13,7 +13,7 @@ import MiscAPIpage from './MiscAPIpage';
 import Productpage from './Productpage';
 import Adminpage from './Adminpage';
 import Shoppingcart from './Shoppingcart';
-import { Router } from 'express';
+
 
 
 const App = () => {
@@ -35,22 +35,37 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <Router>
-        
-
-        <Route index element= { <Landingpage/> } />
-        <Route path='Searchbar' element= {<Searchbar />} />
-        <Route path='Login' element = {<Login />}/>
-        <Route path='Registerpage' element = {<Registerpage /> } />
-        <Route path='Productpage' element = {<Productpage />} />
-        <Route path='Shoppingcart' element = {<Shoppingcart />} />
-        <Route path='MiscAPIpage' element = {<MiscAPIpage />} />
-        <Route path='Adminpage' element = {<Adminpage />} /> 
+      <h1>HELLO WORLD</h1>
+        <>
+          <Landingpage />
+        <Switch>
+          <Route path='/searchbar'>
+            <Searchbar /> 
+          </Route>
+          <Route path='/login'>
+            <Login /> 
+          </Route>
+          <Route path ='/register'>
+            <Registerpage />
+          </Route>
+          <Route path ='/product'>
+            <Productpage />
+          </Route>
+          <Route path='/shoppingcart'>
+            <Shoppingcart />
+          </Route>
+          <Route path='/miscAPIpage'>
+            <MiscAPIpage />
+          </Route>
+          <Route path='/adminpage'>
+            <Adminpage /> 
+          </Route>
+        </Switch>
+        </>
         <p>API Status: {APIHealth}</p> 
         
         
 
-      </Router>
       
     </div>
   );

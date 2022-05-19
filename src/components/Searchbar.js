@@ -36,7 +36,7 @@ const Searchbar = () => {
                 <option value='MaxHwyMPG'>Max Hwy MPG</option>
             </select>
         </span>
-        <Link path='/Landingpage'> Back </Link>
+        {/* <Link path='/Landingpage'> Back </Link> */}
         </div>
         
     )
