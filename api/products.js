@@ -47,7 +47,11 @@ productsRouter.post('/', async (req, res, next) => {
         } catch({name, message}) {
             next( {name, message })
         }
-}); 
+});
+
+// productsRouter.update('/', async (req, res, next) => {
+//     if(!admin)
+// })
 
 
 
