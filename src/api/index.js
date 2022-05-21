@@ -1,7 +1,7 @@
-const baseURL = 'http://localhost:3000/api';
+const baseURL = 'http://localhost:3000/';
 
 export const registerNewUser = async (userObject) => {
-    const url = `${baseURL}/users/register`;
+    const url = `${baseURL}/register`;
     const response = await fetch(url, {
         method: "POST",
         headers: {

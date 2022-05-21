@@ -2,7 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const usersRouter = express.Router();
 const { getUserByUsername, createUser } = require('../db/users');
-const { getShoppingCartItemsByUser } = require('../db/shoppingCart')
+const { getShoppingCartItemsByUser } = require('../db/models/shoppingCart')
 const bcrypt = require('bcrypt');  
 
 usersRouter.use((req, res, next) => {

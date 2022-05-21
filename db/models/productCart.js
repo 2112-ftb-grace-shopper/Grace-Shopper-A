@@ -1,4 +1,4 @@
-const  client  = require('./client');
+const  client  = require('../client');
 
 const _attachProductsToShoppingCart = async (product) => {
     // if there are no products, return an empty array
