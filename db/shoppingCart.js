@@ -14,13 +14,12 @@ const createShoppingCart = async({ productId, shopperId, total }) => {
     }
 }
 
-
 const getShoppingCartItemsByUser = async (id) => {
     try{
         const { rows: [shopperId] } = await client.query(
             `
             SELECT * FROM cart 
-            WHERE id=$1;
+            WHERE "shopperid"=$1;
         `, [id])
 
         return shopperId;
@@ -73,6 +72,17 @@ async function updateCart({ id, orderTotal, itemTotal }) {
      }
 }
 
+async function getCartItemById(id){
+    try {
+        const {rows:[product]} = await client.query(`
+        SELECT * FROM cart WHERE id = ($1);
+        `, [id])
+        return product;
+    } catch (error) {
+        console.error(error)
+        throw error
+    }
+}
 
 const destroyShoppingCartItem = async (id) => {
     try{ 
@@ -94,5 +104,7 @@ module.exports = {
     getShoppingCartItemsByUser,
     createShoppingCart,
     attachProductsToCart,
+    updateCart,
+    getCartItemById,
     destroyShoppingCartItem
 }
