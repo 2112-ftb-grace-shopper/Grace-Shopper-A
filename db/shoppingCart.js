@@ -19,7 +19,7 @@ const getShoppingCartItemsByUser = async (id) => {
         const { rows: [shopperId] } = await client.query(
             `
             SELECT * FROM cart 
-            WHERE id=$1;
+            WHERE "shopperid"=$1;
         `, [id])
 
         return shopperId;
@@ -27,7 +27,6 @@ const getShoppingCartItemsByUser = async (id) => {
         throw error
     }
 }
-
 
 
 const attachProductsToCart = async (product) => {
@@ -46,7 +45,7 @@ const attachProductsToCart = async (product) => {
     try{
         const {rows: products} = await client.query(`
         SELECT product.* FROM products 
-        JOIN 
+        JOIN cart ON cart."productId" = product.id
         WHERE product."productId" IN (${newArray.join(',')})
         `, [products])
 
@@ -56,6 +55,34 @@ const attachProductsToCart = async (product) => {
     }
 }
 
+async function updateCart({ id, orderTotal, itemTotal }) {
+    const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 1}`).join(', ');
+     try{
+         if(setString.length < 0 ) return undefined 
+         
+         const { rows: [newShoppingCart] } = await client.query(`
+         UPDATE products
+         SET ${setString}
+         WHERE id=${fields.id}
+         RETURNING *;
+         `, Object.values(fields))
+         return newShoppingCart;
+     } catch(error){
+         throw error
+     }
+}
+
+async function getCartItemById(id){
+    try {
+        const {rows:[product]} = await client.query(`
+        SELECT * FROM cart WHERE id = ($1);
+        `, [id])
+        return product;
+    } catch (error) {
+        console.error(error)
+        throw error
+    }
+}
 
 const destroyShoppingCartItem = async (id) => {
     try{ 
@@ -72,26 +99,12 @@ const destroyShoppingCartItem = async (id) => {
     }
 }
 
-async function updateShoppingCart({ id, name, price, description, quantity }) {
-    try { 
-        const { rows: [product] } = await client.query(`UPDATE products
-            SET name=${name},
-            description=${description},
-            price=${price}
-            quantity=${quantity}
-            WHERE id=$1
-            RETURNING *;
-        `, [id])
-        return product;
-    } catch (error) {
-      return error;
-    }
-}
 
 module.exports = {
     getShoppingCartItemsByUser,
     createShoppingCart,
     attachProductsToCart,
-    destroyShoppingCartItem,
-    updateShoppingCart
+    updateCart,
+    getCartItemById,
+    destroyShoppingCartItem
 }
