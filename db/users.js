@@ -17,10 +17,6 @@ const createUser = async ({username, password, isAdmin}) => {
       RETURNING username, id, "isAdmin";
       `, [username, password, isAdmin])
 
-      // if(isAdmin === false){
-      //     return [];
-      // }
-
       password = hashedPassword;
 
       return users
@@ -66,15 +62,9 @@ async function getUserById(id) {
 
 }
 
-
-
-
 async function getAllUsers() {
   /* this adapter should fetch a list of users from your db */
 }
-
-
-
 
 // function to create a user
 

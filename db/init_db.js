@@ -50,14 +50,13 @@ async function createTables() {
         id SERIAL PRIMARY KEY,
         "shopperId" INTEGER REFERENCES users(id),
         orderTotal FLOAT,
-        itemTotal INTEGER 
+        itemTotal INTEGER
       );
+
       CREATE TABLE product_cart(
         "productId" INTEGER REFERENCES products(id),
         "cartId" INTEGER REFERENCES cart(id)
       );
-
-
       `);
       console.log('Finished building the tables!');
   } catch (error) {

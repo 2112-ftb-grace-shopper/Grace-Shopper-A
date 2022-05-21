@@ -56,6 +56,23 @@ const attachProductsToCart = async (product) => {
     }
 }
 
+async function updateCart({ id, orderTotal, itemTotal }) {
+    const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 1}`).join(', ');
+     try{
+         if(setString.length < 0 ) return undefined 
+         
+         const { rows: [newShoppingCart] } = await client.query(`
+         UPDATE products
+         SET ${setString}
+         WHERE id=${fields.id}
+         RETURNING *;
+         `, Object.values(fields))
+         return newShoppingCart;
+     } catch(error){
+         throw error
+     }
+}
+
 
 const destroyShoppingCartItem = async (id) => {
     try{ 

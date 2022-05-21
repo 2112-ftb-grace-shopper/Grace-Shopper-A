@@ -19,7 +19,7 @@ productsRouter.get('/', async (req, res, next) => {
     }
 });
 
-productsRouter.post('/', async (req, res, next) => {
+productsRouter.post('/products', async (req, res, next) => {
     const { 
         model,
         make,
