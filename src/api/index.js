@@ -1,3 +1,5 @@
+import { get } from "express/lib/response";
+
 const baseURL = 'http://localhost:3000/api';
 
 export const registerNewUser = async (userObject) => {
@@ -18,4 +20,23 @@ export const registerNewUser = async (userObject) => {
     localStorage.setItem('cars-R-Us', json.token)
 
     return json;
+}
+
+export const getAllProducts = async () => {
+
+    let response;
+
+    try{
+        response = await fetch(`${baseUrl}/products`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const returnedProducts = await response.json()
+        return returnedProducts;
+    } catch(error){
+        console.log("Error getting all products")
+        throw error;
+    }
 }
