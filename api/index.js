@@ -10,13 +10,6 @@ apiRouter.get('/', (req, res, next) => {
   });
 });
 
-apiRouter.get('/health', (req, res, next) => {
-  res.send({
-    healthy: true,
-  });
-});
-
-
 apiRouter.use(async (req, res, next) => {
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');
