@@ -3,15 +3,15 @@ const shoppingCartRouter = express.Router();
 const { requireUser } = require('./utils');
 const { getShoppingCartItemsByUser } = require('../db/shoppingCart');
 
-routinesRouter.use((req, res, next) => {
+shoppingCartRouter.use((req, res, next) => {
     console.log('A request is being made to /shoppingcart');
     next();
 });
 
 shoppingCartRouter.get('/', requireUser, async (req, res, next) => {
     try {
-        const routines = await getShoppingCartItemsByUser();
-        return res.send(routines)
+        const shoppingCart = await getShoppingCartItemsByUser();
+        return res.send(shoppingCart)
     } catch ({ name, message }) {
         return next({ name, message })
     }
