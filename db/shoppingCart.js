@@ -14,6 +14,7 @@ const createShoppingCart = async({ productId, shopperId, total }) => {
     }
 }
 
+
 const getShoppingCartItemsByUser = async (id) => {
     try{
         const { rows: [shopperId] } = await client.query(
@@ -27,7 +28,6 @@ const getShoppingCartItemsByUser = async (id) => {
         throw error
     }
 }
-
 
 
 const attachProductsToCart = async (product) => {
@@ -46,7 +46,7 @@ const attachProductsToCart = async (product) => {
     try{
         const {rows: products} = await client.query(`
         SELECT product.* FROM products 
-        JOIN 
+        JOIN cart ON cart."productId" = product.id
         WHERE product."productId" IN (${newArray.join(',')})
         `, [products])
 
@@ -72,26 +72,10 @@ const destroyShoppingCartItem = async (id) => {
     }
 }
 
-async function updateShoppingCart({ id, name, price, description, quantity }) {
-    try { 
-        const { rows: [product] } = await client.query(`UPDATE products
-            SET name=${name},
-            description=${description},
-            price=${price}
-            quantity=${quantity}
-            WHERE id=$1
-            RETURNING *;
-        `, [id])
-        return product;
-    } catch (error) {
-      return error;
-    }
-}
 
 module.exports = {
     getShoppingCartItemsByUser,
     createShoppingCart,
     attachProductsToCart,
-    destroyShoppingCartItem,
-    updateShoppingCart
+    destroyShoppingCartItem
 }

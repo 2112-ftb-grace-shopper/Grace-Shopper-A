@@ -3,30 +3,31 @@ const client = require('./client');
 const bcrypt = require('bcrypt');
 // function to create a user
 
-const createUser = async ({username, password}) => {
+const createUser = async ({username, password, isAdmin}) => {
   try{
-    console.log('creating the user...');
+      console.log("creating admin status...");
 
-    const SALT_COUNT = 10;
-    const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+      const SALT_COUNT = 10;
+      const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
 
-    const {rows: [user] } = await client.query(
-      `
-      INSERT INTO users (username, password)
-      VALUES($1, $2)
+      const { rows: [users] } = await client.query(`
+      INSERT INTO users (username, password, "isAdmin")
+      VALUES($1, $2, $3)
       ON CONFLICT (username) DO NOTHING
-      RETURNING username, id;
-      `, [username, password]
-    )
+      RETURNING username, id, "isAdmin";
+      `, [username, password, isAdmin])
 
-    password = hashedPassword;
+      // if(isAdmin === false){
+      //     return [];
+      // }
 
-    return user;
+      password = hashedPassword;
+
+      return users
   } catch(error) {
-    throw error;
+      throw error
   }
 }
-
 
 
 async function getUser({username, password}) {
