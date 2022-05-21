@@ -12,11 +12,11 @@ const createAdminUser = async ({username, password, isAdmin}) => {
         INSERT INTO admin_users (username, password, "isAdmin")
         VALUES($1, $2, $3)
         ON CONFLICT (username) DO NOTHING
-        RETURNING username, id;
+        RETURNING username, id, "isAdmin";
         `, [username, password, isAdmin])
 
         password = hashedPassword;
-
+    
         return admin_users
     } catch(error) {
         throw error

@@ -13,7 +13,6 @@ async function dropTables() {
         DROP TABLE IF EXISTS product_cart;
         DROP TABLE IF EXISTS cart;
         DROP TABLE IF EXISTS products;
-        DROP TABLE IF EXISTS admin_users;
         DROP TABLE IF EXISTS users;
         `);
 
@@ -50,14 +49,14 @@ async function createTables() {
       CREATE TABLE cart (
         id SERIAL PRIMARY KEY,
         "shopperId" INTEGER REFERENCES users(id),
-        total INTEGER
+        orderTotal FLOAT,
+        itemTotal INTEGER
       );
+
       CREATE TABLE product_cart(
         "productId" INTEGER REFERENCES products(id),
         "cartId" INTEGER REFERENCES cart(id)
       );
-
-
       `);
       console.log('Finished building the tables!');
   } catch (error) {
@@ -66,40 +65,15 @@ async function createTables() {
   }
 }
 
-async function createInitialAdminUsers() {
-  console.log('Starting to create administrators...')
-  try{
-    // if(isAdmin === false){
-    //   return [];
-    // } 
-
-    const adminUsersToCreate = [
-      { username: 'Admin1', password: 'red1234' },
-      { username: 'Admin2', password: 'blue1234' },
-      { username: 'Admin3', password: 'green1234' },
-      { username: 'Admin4', password: 'yellow1234' },
-    ]
-
-    const adminUsers = await Promise.all(adminUsersToCreate.map(createAdminUser));
-
-    console.log('Administrator created!')
-    console.log(adminUsers);
-    console.log("Finished creating Admins!");
-  } catch(error){
-    console.error("Error creating Admin");
-    throw error
-  } 
-}
-
 async function createInitialUsers() {
   console.log('Starting to create users...');
   try {
 
     const usersToCreate = [
-      { username: 'Connor', password: 'alpha323' },
-      { username: 'Shane', password: 'tango454' },
-      { username: 'John', password: 'yankee560' },
-      { username: 'Allen', password: 'casino097' },
+      { username: 'Connor', password: 'alpha323', isAdmin: true },
+      { username: 'Shane', password: 'tango454', isAdmin: false },
+      { username: 'John', password: 'yankee560', isAdmin: true },
+      { username: 'Allen', password: 'casino097', isAdmin: true },
     ]
     const users = await Promise.all(usersToCreate.map(createUser));
 
@@ -141,7 +115,6 @@ async function createInitialProducts() {
   }
 }
 
-
 async function rebuildDB() {
   try {
     client.connect();
@@ -149,7 +122,7 @@ async function rebuildDB() {
     await createTables();
     await createInitialUsers();
     await createInitialProducts();
-    await createInitialAdminUsers();
+    // await createInitialAdminUsers();
 
     // drop tables in correct order
 
