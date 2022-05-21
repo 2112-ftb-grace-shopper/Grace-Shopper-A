@@ -8,7 +8,7 @@ import '../style/App.css';
 import Navbar from './Navbar';
 import Searchbar from './Searchbar';
 import Login from './Login';
-import Registerpage from './Registerpage';
+import RegisterUser from './RegisterUser';
 import MiscAPIpage from './MiscAPIpage';
 import Productpage from './Productpage';
 import Adminpage from './Adminpage';
@@ -46,7 +46,7 @@ const App = () => {
             <Login /> 
           </Route>
           <Route path ='/register'>
-            <Registerpage />
+            <RegisterUser />
           </Route>
           <Route path ='/product'>
             <Productpage />
