@@ -1,5 +1,5 @@
 // grab our db client connection to use with our adapters
-const client = require('./client');
+const client = require('../client');
 const bcrypt = require('bcrypt');
 // function to create a user
 

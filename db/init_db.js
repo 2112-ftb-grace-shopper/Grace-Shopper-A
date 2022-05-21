@@ -146,3 +146,7 @@ rebuildDB()
   .then(populateInitialData)
   .catch(console.error)
   .finally(() => client.end());
+
+module.exports = {
+  rebuildDB
+};
