@@ -1,6 +1,21 @@
 const  client  = require('../client');
 
-const _attachProductsToShoppingCart = async (product) => {
+
+const createProductCart = async ( { productId, cartId }) => {
+    try{
+        const { rows } = await client.query(`
+        INSERT into product_cart ("productId", "cartId") 
+        VALUES ($1, $2)
+        RETURNING *
+        `, [productId, cartId])
+
+        return rows
+    } catch(error){
+        throw error
+    }
+}
+
+const _attachProductsToProductCart = async (product) => {
     // if there are no products, return an empty array
     if(!product.length){
         return [];
@@ -34,4 +49,21 @@ const _attachProductsToShoppingCart = async (product) => {
     } catch(error){
         throw error
     }
+}
+
+const getCartByShopperId = async (cartId) => {
+    try{
+        const { rows: [ cart ] } = await client.query(`
+        SELECT *
+        FROM product_cart
+        JOIN cart
+        ON productCart."cartId" = cart."shopperId"
+        `)
+    } catch(error){
+        throw error;
+    }
+}
+
+module.exports = {
+    _attachProductsToProductCart
 }

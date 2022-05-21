@@ -19,7 +19,7 @@ const createUser = async ({username, password, isAdmin}) => {
 
       password = hashedPassword;
 
-      return users
+      return users;
   } catch(error) {
       throw error
   }
@@ -46,7 +46,6 @@ async function getUser({username, password}) {
   }
 }
 
-
 async function getUserById(id) {
   try {
       const {rows: [user]} = await client.query(`
@@ -62,9 +61,12 @@ async function getUserById(id) {
 
 }
 
-async function getAllUsers() {
-  /* this adapter should fetch a list of users from your db */
-}
+// async function getAllUsers() {
+//   /* this adapter should fetch a list of users from your db */
+//   try{
+//     const { rows [ user ]}
+//   }
+// }
 
 // function to create a user
 
@@ -89,5 +91,4 @@ module.exports = {
   getUserByUsername,
   getUserById,
   getUser
-
 };
