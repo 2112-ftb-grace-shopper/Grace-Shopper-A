@@ -58,7 +58,7 @@ const App = () => {
           </Route>
         </Switch>
         </>
-        <p>API Status: {APIHealth}</p> 
+        {/* <p>API Status: {APIHealth}</p>  */}
         
         
 

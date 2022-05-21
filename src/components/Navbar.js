@@ -4,7 +4,7 @@ import '../style/Navbar.css';
 
 const Navbar = () => {
     return (
-        <div class = 'frontpagediv'>
+        <div className = 'frontpagediv'>
             <p> Cars R Us Scaffolding </p>
             <div>
                 <ul>
