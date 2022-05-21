@@ -1,5 +1,5 @@
 // Connect to DB
-const  { Client }   = require('pg');
+const  { Client } = require('pg');
 
 // change the DB_NAME string to whatever your group decides on
 const DB_NAME = 'car-shopper-dev';
@@ -23,4 +23,4 @@ if (process.env.CI) {
   client = new Client(DB_URL);
 }
 
-module.exports = client;
+module.exports =  client;
