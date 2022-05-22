@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:3000';
+const baseURL = '/api';
 
 export const registerNewUser = async (userObject) => {
     const url = `${baseURL}/register`;
@@ -22,10 +22,9 @@ export const registerNewUser = async (userObject) => {
 
 export const getAllProducts = async () => {
 
-    let response;
 
     try{
-        response = await fetch(`${baseURL}/products`, {
+        let response = await fetch(`${baseURL}/products`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'

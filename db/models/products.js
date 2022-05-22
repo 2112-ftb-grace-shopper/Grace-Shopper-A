@@ -1,6 +1,5 @@
 const  client  = require('../client');
 
-
 // create products and return all
 const createProduct = async ( { 
     model,
@@ -51,6 +50,9 @@ const getAllProducts = async () => {
         SELECT * 
         FROM products
         `)
+
+        console.log("these are our products", products)
+
         return products
     } catch(error){
         throw error

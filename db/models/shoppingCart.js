@@ -28,33 +28,6 @@ const getShoppingCartItemsByUser = async (id) => {
     }
 }
 
-
-const attachProductsToCart = async (product) => {
-    // check if there is a product, if not, return an empty array
-   if(!product.length){
-       return [];
-   }
-
-   // create an empty array to store the product id's
-   const newArray = [];
-   // loop through the array
-   for(let i = 0; i < product.length; i++){
-       // push the products id into the newArray
-       newArray.push(product[i].id);
-   }
-    try{
-        const {rows: products} = await client.query(`
-        SELECT product.* FROM products 
-        JOIN cart ON cart."productId" = product.id
-        WHERE product."productId" IN (${newArray.join(',')})
-        `, [products])
-
-        return product;
-    } catch(error){
-        throw error
-    }
-}
-
 async function updateCart({ id, orderTotal, itemTotal }) {
     const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 1}`).join(', ');
      try{
@@ -103,7 +76,6 @@ const destroyShoppingCartItem = async (id) => {
 module.exports = {
     getShoppingCartItemsByUser,
     createShoppingCart,
-    attachProductsToCart,
     updateCart,
     getCartItemById,
     destroyShoppingCartItem

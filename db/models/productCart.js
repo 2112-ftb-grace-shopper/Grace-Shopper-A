@@ -15,35 +15,18 @@ const createProductCart = async ( { productId, cartId }) => {
     }
 }
 
-const _attachProductsToProductCart = async (product) => {
-    // if there are no products, return an empty array
-    if(!product.length){
-        return [];
-    }
+
+// front end displaying products to shopping cart, one at a time
+const _attachProductsToProductCart = async (cartId) => {
 
     try{
-        // create a new array to store product Id's
-        const newArr = [];
-
-        // loop through the products and push the productId's
-        // to the new array
-        for(let i = 0; i < product.length; i++){
-            newArr.push(product[i].id);
-        }
 
         // join the products and productCart tables on the newArr with productId's
         const { rows: products } = await client.query(`
-        SELECT product.* FROM products 
-        JOIN productCart ON productCart."productId" = product.id
-        WHERE product."productId" IN (${newArr.join(',')})
+        SELECT products.* FROM products 
+        JOIN product_cart ON product_cart."productId" = products.id
+        WHERE product_cart."cartId" = ${cartId}
         `)
-
-        // for each product 
-        product.forEach((productCart) => {
-            productCart.product = product.filter((productCart) => {
-            return productCart.productId === products.id
-            })
-        })
 
         return products
     } catch(error){

@@ -1,7 +1,7 @@
 const  client  = require('./client');
-const { createUser } = require('./users')
-const { createProduct } = require('./products')
-const { createAdminUser } = require('./adminUsers')
+const { createUser } = require('./models/users')
+const { createProduct } = require('./models/products')
+// const { createAdminUser } = require('./models/adminUsers')
 
 
 async function dropTables() {
@@ -49,8 +49,8 @@ async function createTables() {
       CREATE TABLE cart (
         id SERIAL PRIMARY KEY,
         "shopperId" INTEGER REFERENCES users(id),
-        orderTotal INTEGER
-        itemTotal INTEGER
+        "orderTotal" INTEGER,
+        "itemTotal" INTEGER
       );
 
       CREATE TABLE product_cart(

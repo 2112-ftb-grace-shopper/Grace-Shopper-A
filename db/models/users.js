@@ -87,7 +87,7 @@ const getUserByUsername = async (username) => {
 
 module.exports = {
   createUser,
-  getAllUsers,
+  // getAllUsers,
   getUserByUsername,
   getUserById,
   getUser
