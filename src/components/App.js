@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {  Route, Switch, NavLink } from 'react-router-dom';
 import '../style/App.css';
 import Navbar from './Navbar';
@@ -9,10 +9,16 @@ import MiscAPIpage from './MiscAPIpage';
 import Productpage from './Productpage';
 import Adminpage from './Adminpage';
 import Shoppingcart from './Shoppingcart';
+import '../api';
+import { password } from 'pg/lib/defaults';
+
+
 
 
 
 const App = () => {
+
+
   // const [APIHealth, setAPIHealth] = useState('');
 
   // useEffect(() => {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { registerNewUser } from '../api';
-import { Link } from 'react-router-dom';
 import '../style/Registerpage.css';
 
 const RegisterUser = () => {
@@ -19,12 +18,12 @@ const RegisterUser = () => {
         let firstPassword = document.querySelector('.password').value,
             confirmPassword = document.querySelector('.confirm_password').value;
           
-            if (firstPassword == "") {
+            if (firstPassword === "") {
                 alert("Password field cannot be empty");
                 return false;
             } 
             
-            if (firstPassword != confirmPassword) {
+            if (firstPassword !== confirmPassword) {
                 alert("Passwords did not match, please try again!");
                 return false
             }
