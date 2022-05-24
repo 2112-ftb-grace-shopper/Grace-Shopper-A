@@ -45,7 +45,7 @@ const App = () => {
             <RegisterUser />
           </Route>
           <Route path ='/product'>
-            <Productpage />
+            <Productpage/>
           </Route>
           <Route path='/shoppingcart'>
             <Shoppingcart />

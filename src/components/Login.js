@@ -35,9 +35,9 @@ const Login = () => {
         // <br />
         // </form>
 
-      <Link to="/Registerpage">
+      <Link to="/register">
         <a>
-            Don&apos;t have an account? Register here.
+            Don't have an account? Register here.
         </a>
     </Link>
 

@@ -16,6 +16,7 @@ const RegisterUser = () => {
             password: password
         };
 
+        // these need to useState VVVV
         let firstPassword = document.querySelector('.password').value,
             confirmPassword = document.querySelector('.confirm_password').value;
           

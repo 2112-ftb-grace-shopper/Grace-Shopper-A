@@ -1,6 +1,6 @@
-const express = require('./express')
+const express = require('express')
 const productsRouter = express.Router();
-const { createProducts, getAllProducts, getProductsById} = require('../db/products');
+const { createProducts, getAllProducts, getProductsById} = require('../db/models/products');
 
 
 productsRouter.use((req, res, next) => {
@@ -11,7 +11,10 @@ productsRouter.use((req, res, next) => {
 
 productsRouter.get('/', async (req, res, next) => {
     try{
+        console.log("IN THE TRY")
         const allProducts = await getAllProducts();
+
+        console.log("getting all products", allProducts)
 
         res.send(allProducts);
     } catch({name, message}) {
@@ -19,7 +22,7 @@ productsRouter.get('/', async (req, res, next) => {
     }
 });
 
-productsRouter.post('/products', async (req, res, next) => {
+productsRouter.post('/', async (req, res, next) => {
     const { 
         model,
         make,
@@ -113,7 +116,7 @@ productsRouter.patch('/:productId', async (req, res, next) => {
 });
 
 
-
+module.exports = productsRouter
 
 
 

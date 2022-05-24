@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:4000';
+const baseURL = '/api';
 
 export const registerNewUser = async (userObject) => {
     const url = `${baseURL}/register`;
@@ -19,3 +19,59 @@ export const registerNewUser = async (userObject) => {
 
     return json;
 }
+
+export const getAllProducts = async () => {
+    try{
+        let response = await fetch(`${baseURL}/products`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const returnedProducts = await response.json()
+        return returnedProducts;
+    } catch(error){
+        console.log("Error getting all products")
+        throw error;
+    }
+}
+
+export const postProducts = async (model,
+    make,
+    year,
+    color,
+    cost,
+    min_city_mpg,
+    max_city_mpg,
+    min_hwy_mpg,
+    max_hwy_mpg) => {
+        const token = localStorage.getItem('UserToken');
+        let response;
+        try{
+            response  = await fetch(`${baseURL}/products`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({
+                    make: make,
+                    model: model,
+                    year: year, 
+                    color: color,
+                    cost: cost,
+                    min_city_mpg: min_city_mpg,
+                    max_city_mpg: max_city_mpg,
+                    min_hwy_mpg: min_hwy_mpg,
+                    max_hwy_mpg: max_hwy_mpg
+                })
+            })
+            const postedProducts = await response.json();
+            console.log("These are the products to post", postedProducts)
+            return postedProducts;
+        
+        } catch(error){
+
+        }
+    }
+
