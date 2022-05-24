@@ -1,7 +1,7 @@
 const express = require('express');
 const shoppingCartRouter = express.Router();
 const { requireUser } = require('./utils');
-const { getShoppingCartItemsByUser } = require('../db/models/shoppingCart');
+const { getShoppingCartItemsByUser } = require('../db');
 
 shoppingCartRouter.use((req, res, next) => {
     console.log('A request is being made to /shoppingcart');
