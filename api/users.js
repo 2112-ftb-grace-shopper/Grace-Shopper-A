@@ -76,7 +76,7 @@ usersRouter.post('/login', async (req, res, next) => {
     }
 })
 
-usersRouter.get('/me', async (req, res, next) => {
+usersRouter.get('/', async (req, res, next) => {
     const prefix = 'Bearer ';
     const auth = req.header('Authorization');
     if (!auth) {

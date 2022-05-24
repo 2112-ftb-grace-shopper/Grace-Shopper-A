@@ -1,11 +1,11 @@
-const baseURL = 'http://localhost:3000/';
+const baseURL = 'http://localhost:4000';
 
 export const registerNewUser = async (userObject) => {
     const url = `${baseURL}/register`;
     const response = await fetch(url, {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify({
             username: userObject.user,
