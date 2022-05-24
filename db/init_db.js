@@ -1,7 +1,7 @@
 const  client  = require('./client');
-const { createUser } = require('./users')
-const { createProduct } = require('./products')
-const { createAdminUser } = require('./adminUsers')
+const { createUser } = require('./models/users')
+const { createProduct } = require('./models/products')
+// const { createAdminUser } = require('./models/adminUsers')
 
 
 async function dropTables() {
@@ -40,7 +40,7 @@ async function createTables() {
         make VARCHAR(255) NOT NULL,
         year INTEGER,
         color VARCHAR(255) NOT NULL,
-        cost INTEGER,
+        cost INTEGER NOT NULL,
         min_city_mpg INTEGER,
         max_city_mpg INTEGER,
         min_hwy_mpg INTEGER,
@@ -49,8 +49,8 @@ async function createTables() {
       CREATE TABLE cart (
         id SERIAL PRIMARY KEY,
         "shopperId" INTEGER REFERENCES users(id),
-        orderTotal FLOAT,
-        itemTotal INTEGER
+        "orderTotal" INTEGER,
+        "itemTotal" INTEGER
       );
 
       CREATE TABLE product_cart(

@@ -1,6 +1,5 @@
 const  client  = require('../client');
 
-
 // create products and return all
 const createProduct = async ( { 
     model,
@@ -47,10 +46,14 @@ const createProduct = async ( {
 // get all products in database
 const getAllProducts = async () => {
     try{
+        console.log('AM I IN THIS TRY')
         const { rows:  products } = await client.query(`
         SELECT * 
         FROM products
         `)
+
+        console.log("these are our products", products)
+
         return products
     } catch(error){
         throw error
@@ -70,8 +73,6 @@ async function getProductById(id){
     }
 
 }
-
-
 
 // // update a products information
 // async function updateProduct ({id, name, description, price}) {
@@ -111,7 +112,6 @@ async function getProductById(id){
 //     }
 
 // }
-
 
 const updateProduct = async (fields = {}) => {
     const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 1}`).join(', ');
