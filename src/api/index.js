@@ -1,8 +1,8 @@
 const baseURL = '/api';
 
 export const registerNewUser = async (userObject) => {
-    const url = `${baseURL}/register`;
-    const response = await fetch(url, {
+    console.log("error catching")
+    const response = await fetch(`${baseURL}/users/register`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',

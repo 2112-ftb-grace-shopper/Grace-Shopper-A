@@ -13,9 +13,10 @@ usersRouter.use((req, res, next) => {
 usersRouter.post('/register', async (req, res, next) => {
 
     try {
+        console.log("IN THE TRY")
         const { username, password } = req.body;
         const _user = await getUserByUsername(username);
-
+        console.log("AGAIN IN TRY")
         if (_user) {
             return next({
                 name: 'UserExistsError',
@@ -33,14 +34,14 @@ usersRouter.post('/register', async (req, res, next) => {
             password
         });
         const token = jwt.sign(newUser, process.env.JWT_SECRET);
-
+        console.log("Catching error")
         return res.send({
             user: newUser,
             message: "You're signed up!",
             token: token
         })
-    } catch ({ name, message }) {
-        return next({ name, message });
+    } catch (error) {
+        return next(error);
     }
 });
 

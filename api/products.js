@@ -1,6 +1,6 @@
 const express = require('express')
 const productsRouter = express.Router();
-const { createProducts, getAllProducts, getProductsById} = require('../db/models/products');
+const { createProducts, getAllProducts, getProductsById} = require('../db');
 
 
 productsRouter.use((req, res, next) => {
