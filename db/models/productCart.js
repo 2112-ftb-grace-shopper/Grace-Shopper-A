@@ -1,6 +1,5 @@
 const  client  = require('../client');
 
-
 const createProductCart = async ( { productId, cartId }) => {
     try{
         const { rows } = await client.query(`
@@ -15,13 +14,11 @@ const createProductCart = async ( { productId, cartId }) => {
     }
 }
 
-
 // front end displaying products to shopping cart, one at a time
 const _attachProductsToProductCart = async (cartId) => {
 
     try{
 
-        // join the products and productCart tables on the newArr with productId's
         const { rows: products } = await client.query(`
         SELECT products.* FROM products 
         JOIN product_cart ON product_cart."productId" = products.id
@@ -34,19 +31,26 @@ const _attachProductsToProductCart = async (cartId) => {
     }
 }
 
-const getCartByShopperId = async (cartId) => {
+const getCartByShopperId = async () => {
+
     try{
-        const { rows: [ cart ] } = await client.query(`
-        SELECT *
+        const { rows: cart  } = await client.query(`
+        SELECT cart."shopperId" as "cartId", product_cart.*
         FROM product_cart
         JOIN cart
-        ON productCart."cartId" = cart."shopperId"
-        `)
+        ON product_cart."cartId" = cart."shopperId"
+        `, )
+
+        const userCartWithProducts = await _attachProductsToProductCart(cart)
+
+        return userCartWithProducts
     } catch(error){
         throw error;
     }
 }
 
 module.exports = {
-    _attachProductsToProductCart
+    _attachProductsToProductCart,
+    createProductCart,
+    getCartByShopperId
 }

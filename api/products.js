@@ -9,8 +9,9 @@ productsRouter.use((req, res, next) => {
     next();
 });
 
-productsRouter.get('/products', async (req, res, next) => {
+productsRouter.get('/', async (req, res, next) => {
     try{
+        console.log("IN THE TRY")
         const allProducts = await getAllProducts();
 
         console.log("getting all products", allProducts)
