@@ -1,7 +1,7 @@
 const baseURL = '/api';
 
 export const registerNewUser = async (userObject) => {
-    const url = `${baseURL}/register`;
+    const url = `${baseURL}/users`;
     const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -21,7 +21,7 @@ export const registerNewUser = async (userObject) => {
 }
 
 export const loginUser = async (userObject) => {
-    const url = `${baseURL}/login`;
+    const url = `${baseURL}/users`;
     const response = await fetch(url, {
         method: 'POST',
         header: {
@@ -39,3 +39,20 @@ export const loginUser = async (userObject) => {
 
     return json;
 }
+
+export const getProducts = async () => {
+    const url = `${baseURL}/products`;
+    const response = await fetch(url, {
+        method: 'GET',
+        header: {
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(response => response.json())
+    .then(result => {
+      return result;
+    })
+    .catch(console.error);
+
+  return response
+};
