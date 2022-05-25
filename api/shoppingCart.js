@@ -23,10 +23,10 @@ shoppingCartRouter.get('/', requireUser, async (req, res, next) => {
 shoppingCartRouter.post('/', requireUser, async (req, res, next) => {
     try {
         const userId = req.user.id;
-        const { make, model, year, color, isAdmin } = req.body;
-        const routine = await createProduct({ userId, isAdmin, make, model, year,
+        const { make, model, year, color } = req.body;
+        const routine = await createProduct({ userId, make, model, year,
         color });
-        return res.send(product);
+        return res.send(shoppingCart);
 
     } catch (error) {
         return next(error);
@@ -36,8 +36,8 @@ shoppingCartRouter.post('/', requireUser, async (req, res, next) => {
 shoppingCartRouter.patch('/:productId', requireUser, async (req, res, next) => {
     try {
         const { productId } = req.params;
-        const { make, model, year, color, isAdmin } = req.body;
-        const product = await getProductById(productId);
+        const { make, model, year, color } = req.body;
+        const product = await getShoppingCartItemsByUser(productId);
 
         if (req.user.id !== product.userId) {
             return next({
@@ -46,10 +46,30 @@ shoppingCartRouter.patch('/:productId', requireUser, async (req, res, next) => {
             })
         }
         
-        const updateProduct = await updateProduct({ id: productId, isAdmin, make, model,
+        const updateCart = await updateCart({ id: productId, make, model,
         year, color })
-        return res.send(updateProduct)
+        return res.send(updateCart)
 
+    } catch (error) {
+        return next(error)
+    }
+})
+
+shoppingCartRouter.delete('/:productId', requireUser, async (req, res, next) => {
+    try {
+            const { productId } = req.params;
+            const product = await getProductById(productId)
+
+            if (req.user.id !== product.productId) {
+                return next({
+                    name: 'OwnerError',
+                    message: 'User is not owner of cart'
+                })
+            }
+        
+            await destroyShoppingCartItem(productId);
+            product.success = true;
+            return res.send(procuct)
     } catch (error) {
         return next(error)
     }
