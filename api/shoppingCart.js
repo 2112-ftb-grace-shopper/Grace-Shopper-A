@@ -33,7 +33,7 @@ shoppingCartRouter.post('/', requireUser, async (req, res, next) => {
     }
 });
 
-shoppingCartRouter.patch('/:productId', requireUser, async (req, res, next) => {
+shoppingCartRouter.patch('/:shoppingCartId', requireUser, async (req, res, next) => {
     try {
         const { productId } = req.params;
         const { make, model, year, color } = req.body;
@@ -55,7 +55,7 @@ shoppingCartRouter.patch('/:productId', requireUser, async (req, res, next) => {
     }
 })
 
-shoppingCartRouter.delete('/:productId', requireUser, async (req, res, next) => {
+shoppingCartRouter.delete('/:shoppingCartId', requireUser, async (req, res, next) => {
     try {
             const { productId } = req.params;
             const product = await getProductById(productId)
@@ -69,7 +69,7 @@ shoppingCartRouter.delete('/:productId', requireUser, async (req, res, next) => 
         
             await destroyShoppingCartItem(productId);
             product.success = true;
-            return res.send(procuct)
+            return res.send(shoppingCart)
     } catch (error) {
         return next(error)
     }
