@@ -53,7 +53,7 @@ shoppingCartRouter.patch('/:shoppingCartId', requireUser, async (req, res, next)
     } catch (error) {
         return next(error)
     }
-})
+});
 
 shoppingCartRouter.delete('/:shoppingCartId', requireUser, async (req, res, next) => {
     try {
@@ -73,4 +73,4 @@ shoppingCartRouter.delete('/:shoppingCartId', requireUser, async (req, res, next
     } catch (error) {
         return next(error)
     }
-})
+});
