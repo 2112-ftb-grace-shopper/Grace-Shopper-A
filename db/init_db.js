@@ -1,7 +1,8 @@
 const  client  = require('./client');
-const { createUser } = require('./models/users')
+const { createUser, getUser, getUserByUsername } = require('./models/users')
 const { createProduct } = require('./models/products')
-// const { createAdminUser } = require('./models/adminUsers')
+const {createShoppingCart} = require('./models/shoppingCart');
+const {attachProductsToProductCart, createProductCart, getCartByShopperId} = require('./models/productCart')
 
 
 async function dropTables() {
@@ -65,16 +66,17 @@ async function createTables() {
   }
 }
 
+const usersToCreate = [
+  { username: 'Connor', password: 'alpha323', isAdmin: true },
+  { username: 'Shane', password: 'tango454', isAdmin: false },
+  { username: 'John', password: 'yankee560', isAdmin: true },
+  { username: 'Allen', password: 'casino097', isAdmin: true },
+]
+
 async function createInitialUsers() {
   console.log('Starting to create users...');
   try {
 
-    const usersToCreate = [
-      { username: 'Connor', password: 'alpha323', isAdmin: true },
-      { username: 'Shane', password: 'tango454', isAdmin: false },
-      { username: 'John', password: 'yankee560', isAdmin: true },
-      { username: 'Allen', password: 'casino097', isAdmin: true },
-    ]
     const users = await Promise.all(usersToCreate.map(createUser));
 
     console.log('Users created:');
@@ -115,6 +117,31 @@ async function createInitialProducts() {
   }
 }
 
+async function createInitialShoppingCart() {
+  try{
+    console.log('starting to create a shopping cart...');
+    const user = await getUserByUsername(usersToCreate[0].username);
+    console.log("This is the user ===>", user)
+
+    const shoppingCartToCreate = [
+      {id: 1, shopperId: user.id, orderTotal: 123456, itemTotal: 3}
+    ]
+
+    const shoppingCarts = await Promise.all(shoppingCartToCreate.map((shoppingCart) => createShoppingCart(shoppingCart)));
+    console.log("Shopping Cart Created:", shoppingCarts);
+
+
+    const productsOnShoppingCartToCreate = [
+      {productId: 1, cartId: shoppingCarts[0].id }
+    ]
+    const productsOnCart = await Promise.all(productsOnShoppingCartToCreate.map((productCart) => createProductCart(productCart)));
+    console.log('products on cart ===>', productsOnCart)
+    console.log('Finished creating shopping carts')
+  } catch(error){
+    throw error;
+  }
+}
+
 async function rebuildDB() {
   try {
     client.connect();
@@ -122,7 +149,7 @@ async function rebuildDB() {
     await createTables();
     await createInitialUsers();
     await createInitialProducts();
-    // await createInitialAdminUsers();
+    await createInitialShoppingCart();
 
     // drop tables in correct order
 

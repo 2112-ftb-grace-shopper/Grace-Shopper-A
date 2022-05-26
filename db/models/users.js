@@ -26,40 +26,96 @@ const createUser = async ({username, password, isAdmin}) => {
 }
 
 
-async function getUser({username, password}) {
-  try {
-      const {rows: [user]} = await client.query(`
-    SELECT * FROM users WHERE username = ($1);
-    `, [username])
+// async function getUser({username, password}) {
+//   try {
+//       const {rows: [user]} = await client.query(`
+//     SELECT * FROM users WHERE username = ($1);
+//     `, [username])
 
-      if (password !== user.password) {
-          return null
-      }
-      console.log(user)
-      delete user.password
+//       console.log('This is the username', username)
+//       console.log("This is the password", password)
+//       if (password !== user.password) {
+//           return null
+//       }
+//       console.log("This is the user", user)
+//       delete user.password
 
-      return user;
+//       return user;
 
-  } catch (error) {
-      console.error(error)
-      throw(error)
-  }
-}
+//   } catch (error) {
+//       console.error(error)
+//       throw(error)
+//   }
+// }
 
-async function getUserById(id) {
-  try {
-      const {rows: [user]} = await client.query(`
-          SELECT * FROM users WHERE id = ($1);
-      `, [id])
+// function to get a user by their username and verified Id
+const getUser = async ( username, password ) => {
+  console.log('username', username)
+  console.log('password ==>', password)
+ 
+	try {
+		const user = await getUserByUsername(username);
+    console.log("this is the user function:", user)
+		const hashedPassword = user.password;
+		const verifyPassword = await bcrypt.compare(password, hashedPassword);
+    console.log('verifiedPW', verifyPassword)
+
+		if (verifyPassword) {
+			delete user.password;
+      console.log('User after deleted password', user)
+			return user;
+		} 
+	} catch (error) {
+		throw error;
+	}
+};
+
+// async function getUser( username, password ) {
+//   try {
+//       const user = await getUserByUsername(username);
+//       if(!user) return;
+//       const hashedPassword = user.password;
+//       const passwordsMatch = await bcrypt.compare(password, hashedPassword);
+//       if (passwordsMatch) {
+//           const { rows: [selectedUser] } = await client.query(`
+//           SELECT *
+//           FROM users
+//           WHERE username=$1 and password=$2;
+//           `, [username, hashedPassword]);
+//           delete selectedUser.password;
+//           return selectedUser;
+//       } 
+//   } catch (error) {
+//       throw error;
+//   }
+// }
+
+
+const getUserById = async (id) => {
+	const { rows: [ user ] } = await client.query(
+		`
+    SELECT * FROM users 
+    where id = $1`,
+		[ id ]
+	);
+
+	return user;
+};
+
+// async function getUserById(id) {
+//   try {
+//       const {rows: [user]} = await client.query(`
+//           SELECT * FROM users WHERE id = ($1);
+//       `, [id])
    
-      delete user.password;
-      return user
-  } catch (error) {
-      console.error(error)
-      throw error
-  }
+//       delete user.password;
+//       return user
+//   } catch (error) {
+//       console.error(error)
+//       throw error
+//   }
 
-}
+// }
 
 // async function getAllUsers() {
 //   /* this adapter should fetch a list of users from your db */
@@ -72,12 +128,14 @@ async function getUserById(id) {
 
 const getUserByUsername = async (username) => {
   try{
+    console.log('username:', username)
     const { rows: [user] } = await client.query(
       `
       SELECT * FROM users
       where username = $1;
       `, [username]
     )
+    console.log(user)
     return user
   } catch (error){
     throw error;
@@ -87,7 +145,6 @@ const getUserByUsername = async (username) => {
 
 module.exports = {
   createUser,
-  // getAllUsers,
   getUserByUsername,
   getUserById,
   getUser
