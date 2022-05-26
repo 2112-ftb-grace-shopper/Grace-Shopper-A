@@ -28,6 +28,9 @@ const Productpage = () => {
                return <div className = "content" key = {products.id}>
                     <h2> Product: {products.make} </h2> 
                     <h2>Model: {products.model} </h2>
+                    <h2>Make: {products.make}</h2>
+                    <h3>Year: {products.year}</h3>
+                    <h3>Cost: ${products.cost}</h3>
                 </div>
             })
         }

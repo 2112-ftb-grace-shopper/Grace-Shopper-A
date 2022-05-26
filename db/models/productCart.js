@@ -15,7 +15,7 @@ const createProductCart = async ( { productId, cartId }) => {
 }
 
 // front end displaying products to shopping cart, one at a time
-const _attachProductsToProductCart = async (cartId) => {
+const attachProductsToProductCart = async (cartId) => {
 
     try{
 
@@ -41,7 +41,7 @@ const getCartByShopperId = async () => {
         ON product_cart."cartId" = cart."shopperId"
         `, )
 
-        const userCartWithProducts = await _attachProductsToProductCart(cart)
+        const userCartWithProducts = await attachProductsToProductCart(cart)
 
         return userCartWithProducts
     } catch(error){
@@ -50,7 +50,7 @@ const getCartByShopperId = async () => {
 }
 
 module.exports = {
-    _attachProductsToProductCart,
+    attachProductsToProductCart,
     createProductCart,
     getCartByShopperId
 }
