@@ -2,3 +2,14 @@
     border: 2px solid black;
     border-radius: 15px;
 }
+
+.column {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.car-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
