@@ -20,6 +20,25 @@ export const registerNewUser = async (userObject) => {
     return json;
 }
 
+export const loginUser = async (userObject) => {
+    const token = localStorage.getItem('cars-R-Us', json.token);
+    const response = await fetch(`${baseURL}/users/login`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: userObject.user,
+            password: userObject.password
+        }),
+    });
+
+    const json = await response.json();
+    console.log(json);
+    localStorage.setItem('cars-R-Us', json.token)
+    return json;
+}
+
 export const getAllProducts = async () => {
     try{
         let response = await fetch(`${baseURL}/products`, {
