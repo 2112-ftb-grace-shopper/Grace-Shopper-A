@@ -29,12 +29,12 @@ const Login = (props) => {
   };
 
   const handleLogOut = () => {
-    localStorage.removeItem("cars-R-Us_JWT");
+    localStorage.removeItem("cars-R-Us");
     setIsLoggedIn(false);
   };
 
   useEffect(() => {
-    setIsLoggedIn(!localStorage.getItem("cars-R-Us_JWT"));
+    setIsLoggedIn(!localStorage.getItem("cars-R-Us"));
   }, []);
 
 

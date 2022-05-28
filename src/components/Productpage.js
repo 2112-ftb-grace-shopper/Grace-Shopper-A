@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from "react";
 import { Link } from 'react-router-dom';
-import { getAllProducts, postProducts } from "../api/index";
+import { getAllProducts } from "../api/index";
 import '../style/Productpage.css';
 
 import firstCar from '../assets/images/1.png';
