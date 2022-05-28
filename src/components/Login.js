@@ -98,9 +98,9 @@ const Login = (props) => {
         // <br />
         // </form>
 
-      <Link to="/register">
-        <a>
-            Don't have an account? Register here.
-        </a>
-    </Link>
+    //   <Link to="/register">
+    //     <a>
+    //         Don't have an account? Register here.
+    //     </a>
+    // </Link>
 export default Login
