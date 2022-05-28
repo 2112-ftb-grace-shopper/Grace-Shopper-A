@@ -11,11 +11,11 @@ const createUser = async ({username, password, isAdmin}) => {
       const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
 
       const { rows: [users] } = await client.query(`
-      INSERT INTO users (username, password, "isAdmin")
-      VALUES($1, $2, $3)
+      INSERT INTO users (username, password)
+      VALUES($1, $2)
       ON CONFLICT (username) DO NOTHING
       RETURNING username, id, "isAdmin";
-      `, [username, password, isAdmin])
+      `, [username, password])
 
       password = hashedPassword;
 

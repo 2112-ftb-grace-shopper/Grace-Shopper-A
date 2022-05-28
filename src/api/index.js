@@ -78,7 +78,9 @@ export const postProducts = async (model,
     export const getMyShoppingCart = async (username) => {
         const token = localStorage.getItem('User Token');
         let response;
+        console.log('username ==>', username)
         try{
+
             response = await fetch(`${baseURL}/users/${username}/shoppingCart`, {
                 method: 'GET',
                 headers: {
