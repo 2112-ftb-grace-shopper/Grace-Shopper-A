@@ -4,6 +4,7 @@ const { requireUser } = require('./utils');
 const { getShoppingCartItemsByUser } = require('../db/models/shoppingCart');
 const { default: createBreakpoints } = require('@material-ui/core/styles/createBreakpoints');
 const { createProduct, getProductById, updateProduct } = require('../db');
+const productsRouter = require('./products');
 
 shoppingCartRouter.use((req, res, next) => {
     console.log('A request is being made to /shoppingcart');
@@ -24,7 +25,7 @@ shoppingCartRouter.post('/', requireUser, async (req, res, next) => {
     try {
         const userId = req.user.id;
         const { make, model, year, color } = req.body;
-        const routine = await createProduct({ userId, make, model, year,
+        const product = await createProduct({ userId, make, model, year,
         color });
         return res.send(shoppingCart);
 
@@ -74,3 +75,5 @@ shoppingCartRouter.delete('/:shoppingCartId', requireUser, async (req, res, next
         return next(error)
     }
 });
+
+module.exports = productsRouter

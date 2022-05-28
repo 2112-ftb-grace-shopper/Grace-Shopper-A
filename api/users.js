@@ -4,6 +4,7 @@ const usersRouter = express.Router();
 const { getUserByUsername, createUser } = require('../db/models/users');
 const { getShoppingCartItemsByUser } = require('../db/models/shoppingCart')
 const bcrypt = require('bcrypt');  
+const { user } = require('pg/lib/defaults');
 
 usersRouter.use((req, res, next) => {
     console.log('A request is being made to /users');
@@ -16,6 +17,7 @@ usersRouter.post('/register', async (req, res, next) => {
         console.log("IN THE TRY")
         const { username, password } = req.body;
         const _user = await getUserByUsername(username);
+        console.log("PW ===>", password)
         console.log("AGAIN IN TRY")
         if (_user) {
             return next({
@@ -33,7 +35,14 @@ usersRouter.post('/register', async (req, res, next) => {
             username,
             password
         });
-        const token = jwt.sign(newUser, process.env.JWT_SECRET);
+        console.log('the username =>', username)
+        console.log("newUser ===>", newUser)
+        const token = jwt.sign({
+            id: newUser.id,
+            username
+        }, `${process.env.JWT_SECRET}`,
+        {expiresIn: '1week'});
+        console.log('token =>', token)
         console.log("Catching error")
         return res.send({
             user: newUser,
