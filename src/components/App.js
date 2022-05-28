@@ -13,6 +13,7 @@ import Shoppingcart from './Shoppingcart';
 
 
 const App = () => {
+  const[shoppingCart, setShoppingCart] = useState([]);
   // const [APIHealth, setAPIHealth] = useState('');
 
   // useEffect(() => {
@@ -48,7 +49,7 @@ const App = () => {
             <Productpage/>
           </Route>
           <Route path='/shoppingcart'>
-            <Shoppingcart />
+            <Shoppingcart shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}/>
           </Route>
           <Route path='/miscAPIpage'>
             <MiscAPIpage />
