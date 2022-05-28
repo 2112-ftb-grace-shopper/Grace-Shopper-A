@@ -39,6 +39,24 @@ export const loginUser = async (userObject) => {
     return json;
 }
 
+export const testAuthentication = async (token) => {
+    const url = `${baseURL}/users/me`;
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    }).then(response => response.json())
+        .then(result => {
+            console.log(result);
+            return result;
+        })
+        .catch(console.error);
+
+    return response;
+}
+
 export const getAllProducts = async () => {
     try{
         let response = await fetch(`${baseURL}/products`, {
