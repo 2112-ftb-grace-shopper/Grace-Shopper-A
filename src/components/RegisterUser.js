@@ -45,6 +45,8 @@ const RegisterUser = () => {
         setPassword(event.target.value);
     }
 
+
+
     return (
         <>
         <div>
