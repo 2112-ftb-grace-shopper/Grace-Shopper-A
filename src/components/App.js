@@ -16,6 +16,7 @@ import { testAuthentication } from '../api';
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedInUsername, setLoggedInUsername] = useState('');
+  const[shoppingCart, setShoppingCart] = useState([]);
 
 async function isValidJWT() {
   const token = localStorage.getItem('cars-R-Us_JWT');
@@ -30,6 +31,7 @@ async function isValidJWT() {
 useEffect(() => {
   isValidJWT();
 }, []);
+
   // const [APIHealth, setAPIHealth] = useState('');
 
   // useEffect(() => {
@@ -50,7 +52,7 @@ useEffect(() => {
     <div className="app-container">
       <h1>HELLO WORLD</h1>
         <>
-          <Navbar />
+          <Navbar isLoggedIn={isLoggedIn} loggedInUsername={loggedInUsername} />
         <Switch>
           <Route path='/searchbar'>
             <Searchbar /> 
@@ -65,7 +67,7 @@ useEffect(() => {
             <Productpage/>
           </Route>
           <Route path='/shoppingcart'>
-            <Shoppingcart />
+            <Shoppingcart shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}/>
           </Route>
           <Route path='/miscAPIpage'>
             <MiscAPIpage />

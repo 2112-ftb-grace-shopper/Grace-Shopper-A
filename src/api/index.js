@@ -112,3 +112,23 @@ export const postProducts = async (model,
         }
     }
 
+    export const getMyShoppingCart = async (username) => {
+        const token = localStorage.getItem('User Token');
+        let response;
+        try{
+            response = await fetch(`${baseURL}/users/${username}/shoppingCart`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+            const json = await response.json()
+            return json;
+    
+        } catch(error) {
+            console.log('Error getting shopping cart');
+            throw error
+        }
+    }
+
