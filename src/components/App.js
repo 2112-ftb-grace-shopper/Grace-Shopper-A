@@ -55,7 +55,7 @@ useEffect(() => {
           <Navbar isLoggedIn={isLoggedIn} loggedInUsername={loggedInUsername} />
         <Switch>
           <Route path='/searchbar'>
-            <Searchbar /> 
+            <Searchbar  /> 
           </Route>
           <Route path='/login'>
             <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} /> 
@@ -79,9 +79,6 @@ useEffect(() => {
         </>
         {/* <p>API Status: {APIHealth}</p>  */}
         
-        
-
-      
     </div>
   );
 };

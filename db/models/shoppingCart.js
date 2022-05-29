@@ -19,8 +19,12 @@ const getShoppingCartItemsByUser = async (id) => {
         const { rows: [shopperId] } = await client.query(
             `
             SELECT * FROM cart 
-            WHERE "shopperid"=$1;
+            WHERE "shopperId"=$1;
         `, [id])
+
+        if(!shopperId){
+            return [];
+        }
 
         return shopperId;
     } catch(error) {

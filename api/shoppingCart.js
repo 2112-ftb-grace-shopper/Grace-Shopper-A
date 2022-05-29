@@ -3,7 +3,7 @@ const shoppingCartRouter = express.Router();
 const { requireUser } = require('./utils');
 const { getShoppingCartItemsByUser } = require('../db/models/shoppingCart');
 const { default: createBreakpoints } = require('@material-ui/core/styles/createBreakpoints');
-const { createProduct, getProductById, updateProduct } = require('../db');
+const { createProduct, getProductById, updateProduct, getUserByUsername } = require('../db');
 const productsRouter = require('./products');
 
 shoppingCartRouter.use((req, res, next) => {
@@ -13,12 +13,14 @@ shoppingCartRouter.use((req, res, next) => {
 
 shoppingCartRouter.get('/', requireUser, async (req, res, next) => {
     try {
-        const shoppingCart = await getShoppingCartItemsByUser();
+        const userId = req.user.id;
+        console.log('in this try')
+        const shoppingCart = await getShoppingCartItemsByUser(userId);
+        console.log("shoppingCart ==>", shoppingCart)
         return res.send(shoppingCart)
-    } catch ({ name, message }) {
-        return next({ name, message })
+    } catch ( error ) {
+        return next(error)
     }
-
 });
 
 shoppingCartRouter.post('/', requireUser, async (req, res, next) => {
@@ -76,4 +78,4 @@ shoppingCartRouter.delete('/:shoppingCartId', requireUser, async (req, res, next
     }
 });
 
-module.exports = productsRouter
+module.exports = shoppingCartRouter

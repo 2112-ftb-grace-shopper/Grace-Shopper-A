@@ -6,10 +6,13 @@ import '../style/Login.css';
 const Login = (props) => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-  const {setIsLoggedIn} = props;
+  const {isLoggedIn, setIsLoggedIn} = props;
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     console.log("Logging in...");
+    // event.preventDefault();
+    // setUser("");
+    // setPassword("")
     const registerInfo = {
       user: user,
       password: password,
@@ -29,13 +32,14 @@ const Login = (props) => {
   };
 
   const handleLogOut = () => {
-    localStorage.removeItem("fitness_tracker_JWT");
+    localStorage.removeItem("cars-R-Us");
     setIsLoggedIn(false);
   };
 
   useEffect(() => {
-    setIsLoggedIn(!!localStorage.getItem("fitness_tracker_JWT"));
+    setIsLoggedIn(!localStorage.getItem("cars-R-Us"));
   }, []);
+
 
     return (
       <>
