@@ -8,8 +8,11 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const {isLoggedIn, setIsLoggedIn} = props;
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     console.log("Logging in...");
+    // event.preventDefault();
+    // setUser("");
+    // setPassword("")
     const registerInfo = {
       user: user,
       password: password,

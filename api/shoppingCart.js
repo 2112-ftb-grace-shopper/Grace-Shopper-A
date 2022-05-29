@@ -13,12 +13,13 @@ shoppingCartRouter.use((req, res, next) => {
 
 shoppingCartRouter.get('/', requireUser, async (req, res, next) => {
     try {
+        const userId = req.user.id;
         console.log('in this try')
-        const shoppingCart = await getShoppingCartItemsByUser(username);
+        const shoppingCart = await getShoppingCartItemsByUser(userId);
         console.log("shoppingCart ==>", shoppingCart)
         return res.send(shoppingCart)
-    } catch ({ name, message }) {
-        return next({ name, message })
+    } catch ( error ) {
+        return next(error)
     }
 });
 

@@ -15,13 +15,13 @@ export const registerNewUser = async (userObject) => {
     const json = await response.json();
     console.log(json);
 
-    localStorage.setItem('cars-R-Us', json.token)
+    localStorage.setItem('userToken', json.token)
+    localStorage.setItem('Username', userObject.user);
 
     return json;
 }
 
 export const loginUser = async (userObject) => {
-    const token = localStorage.getItem('cars-R-Us', json.token);
     const response = await fetch(`${baseURL}/users/login`, {
         method: "POST",
         headers: {
@@ -35,7 +35,9 @@ export const loginUser = async (userObject) => {
 
     const json = await response.json();
     console.log(json);
-    localStorage.setItem('cars-R-Us', json.token)
+    localStorage.setItem('userToken', json.token)
+    localStorage.setItem('Username', userObject.user);
+
     return json;
 }
 
@@ -112,13 +114,15 @@ export const postProducts = async (model,
         }
     }
 
-    export const getMyShoppingCart = async (username) => {
-        const token = localStorage.getItem('User Token');
+    export const getMyShoppingCart = async () => {
+        const token = localStorage.getItem('userToken');
+        console.log('TOKEN FE ==>', token)
+        const username = localStorage.getItem('Username');
         let response;
         console.log('username ==>', username)
         try{
 
-            response = await fetch(`${baseURL}/users/${username}/shoppingCart`, {
+            response = await fetch(`${baseURL}/shoppingCart`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -134,3 +138,22 @@ export const postProducts = async (model,
         }
     }
 
+    export const updateProduct = async (productId, make, model, cost) => {
+        let response;
+        try{
+            response = await fetch(`${baseURL}/products${productId}`,{
+                method: 'PATCH',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(
+                    {make: make, model: model, cost: cost}
+                )
+            })
+            const updatedProduct = await response.json();
+            return updatedProduct;
+        } catch(error){
+            console.log("error updating product")
+            throw error
+        }
+    }

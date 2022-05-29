@@ -2,7 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../style/Navbar.css';
 
-const Navbar = () => {
+
+
+const Navbar = (props) => {
+        const {isLoggedIn, setIsLoggedIn} = props;
+
+        
     return (
         <div className = 'frontpagediv'>
             <p> Cars R Us Scaffolding </p>

@@ -12,20 +12,23 @@ apiRouter.get('/', (req, res, next) => {
 
 apiRouter.use(async (req, res, next) => {
   const prefix = 'Bearer ';
+  console.log("Bearer", prefix)
   const auth = req.header('Authorization');
+  console.log("Auth", auth)
   if (!auth) {
     next();
   } else if (auth.startsWith(prefix)) {
     const token = auth.slice(prefix.length);
+    console.log("TOKEN ==>", token)
     try {
-      const { id } = jwt.verify(token, JWT_SECRET);
+      const { id } = jwt.verify(token, `${JWT_SECRET}`);
 
       if (id) {
         req.user = await getUserById(id);
         next();
       }
-    } catch ({ name, message }) {
-      next({ name, message });
+    } catch (error) {
+      next(error);
     }
   } else {
     next({
