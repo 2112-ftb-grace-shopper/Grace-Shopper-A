@@ -17,6 +17,7 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedInUsername, setLoggedInUsername] = useState('');
   const[shoppingCart, setShoppingCart] = useState([]);
+  const [ products, setProducts ] = useState([])
 
 async function isValidJWT() {
   const token = localStorage.getItem('cars-R-Us_JWT');
@@ -31,22 +32,6 @@ async function isValidJWT() {
 useEffect(() => {
   isValidJWT();
 }, []);
-
-  // const [APIHealth, setAPIHealth] = useState('');
-
-  // useEffect(() => {
-    // follow this pattern inside your useEffect calls:
-    // first, create an async function that will wrap your axios service adapter
-    // invoke the adapter, await the response, and set the data
-    // const getAPIStatus = async () => {
-    //   const { healthy } = await getAPIHealth();
-    //   setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
-    // };
-
-    // second, after you've defined your getter above
-    // invoke it immediately after its declaration, inside the useEffect callback
-  //   getAPIStatus();
-  // }, []);
 
   return (
     <div className="app-container">
@@ -64,7 +49,7 @@ useEffect(() => {
             <RegisterUser />
           </Route>
           <Route path ='/product'>
-            <Productpage/>
+            <Productpage products={products} setProducts={setProducts}></Productpage>
           </Route>
           <Route path='/shoppingcart'>
             <Shoppingcart shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}/>

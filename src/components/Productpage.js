@@ -2,8 +2,8 @@ import React, { useEffect, useState} from "react";
 import { Link } from 'react-router-dom';
 import { getAllProducts } from "../api/index";
 import '../style/Productpage.css';
-import Card from '@material-ui/core/Card'
-import { CardContent } from '@material-ui/core'
+// import Card from '@material-ui/core/Card'
+// import { CardContent } from '@material-ui/core'
 
 import firstCar from '../assets/images/1.png';
 import secondCar from '../assets/images/2.png';
@@ -16,8 +16,8 @@ import eighthCar from '../assets/images/8.jpeg';
 import ninethCar from '../assets/images/9.png';
 import tenthCar from '../assets/images/10.png';
 
-const Productpage = () => {
-    const [ products, setProducts ] = useState([]);
+const Productpage = (props) => {
+    const { products, setProducts } = props;
 
     useEffect(() => {
         (async () => {
@@ -39,11 +39,7 @@ const Productpage = () => {
 
     return(
         <div>
-<Card>
-    <CardContent>
             <h1>In the products Page</h1>
-    </CardContent>
-            </Card>
         <div className = "productsBox">
         <h1>Take a look at our selection of cars!</h1>
  
@@ -51,16 +47,13 @@ const Productpage = () => {
         {
             products.map(products => {
                return <div className = "content" key = {products.id}>
-                   <Card>
                     <div className="column">
                       <div>
-                      <CardContent>
                     <h2>Product: {products.make} </h2> 
                     <h2>Model: {products.model} </h2>
                     <h2>Make: {products.make}</h2>
                     <h3>Year: {products.year}</h3>
                     <h3>Cost: ${products.cost}</h3>
-                    </CardContent>
                     </div>
                     
                     <div className="car-image">
@@ -69,7 +62,7 @@ const Productpage = () => {
                     </div>
  
                     </div>
-                    </Card>
+
                 </div>
             })
         }

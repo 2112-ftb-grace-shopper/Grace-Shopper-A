@@ -1,3 +1,5 @@
+
+   
 import React, {useEffect, useState } from "react";
 import { getMyShoppingCart } from "../api";
 import { Link } from "react-router-dom";
@@ -17,9 +19,21 @@ const Shoppingcart = (props) => {
     },[]);
 
     return (
-        <div>
-            <div className="shopping-cart-content">
-                {
+
+        <div className="shoppingcart">
+           {shoppingCart.length===0? 
+           <div>
+           <h1>Sorry, there is nothing in your cart!</h1>
+           <button>
+            <Link to ='/product'>
+                Check out some of our cars!
+            </Link>
+           </button>
+           </div>
+           :
+           <div>
+               <h1>Here are your shopping cart items!</h1>
+                       {
                     shoppingCart.map(shoppingCart => {
                         return <div className = 'content' key = {shoppingCart.id}>
                             <h2>Shopping Cart: {shoppingCart.shopperId}</h2> 
@@ -27,8 +41,8 @@ const Shoppingcart = (props) => {
                             </div>
                     })
                 }
-            </div>
-        <Link to='/Navbar'> Back </Link>
+           </div>
+           } 
         </div>
     )
 }

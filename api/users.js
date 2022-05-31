@@ -115,18 +115,18 @@ usersRouter.get('/', async (req, res, next) => {
 
 })
 
-usersRouter.get('/:username/shoppingCart', async (req, res, next) => {
-    try{
-        console.log('In this route!!')
-        const username = req.params.username;
-        console.log("USERNAME", username)
-        const shoppingCart = await getShoppingCartItemsByUser({username});
-        return res.send(shoppingCart)
+// usersRouter.get('/:username/shoppingCart', async (req, res, next) => {
+//     try{
+//         console.log('In this route!!')
+//         const username = req.params.username;
+//         console.log("USERNAME", username)
+//         const shoppingCart = await getShoppingCartItemsByUser({username});
+//         return res.send(shoppingCart)
 
-    } catch (error) {
-        return next (error)
-    }
-})
+//     } catch (error) {
+//         return next (error)
+//     }
+// })
 
 
 module.exports = usersRouter;
