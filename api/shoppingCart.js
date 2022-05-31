@@ -14,7 +14,9 @@ shoppingCartRouter.use((req, res, next) => {
 
 shoppingCartRouter.get('/', requireUser, async (req, res, next) => {
     try {
-        const userId = req.user.id;
+        // console.log('require', requ)
+        const userId = req.user;
+        console.log(userId)
         console.log('in this try')
         const shoppingCart = await getShoppingCartItemsByUser(userId);
         console.log("shoppingCart ==>", shoppingCart)
