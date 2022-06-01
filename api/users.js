@@ -1,7 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const usersRouter = express.Router();
-const { getUserByUsername, createUser } = require('../db/models/users');
+const { getUserByUsername, createUser, getAllUsers, getUser } = require('../db/models/users');
 const { getShoppingCartItemsByUser } = require('../db/models/shoppingCart')
 const bcrypt = require('bcrypt');  
 const { user } = require('pg/lib/defaults');
@@ -9,6 +9,19 @@ const { user } = require('pg/lib/defaults');
 usersRouter.use((req, res, next) => {
     console.log('A request is being made to /users');
     next();
+});
+
+usersRouter.get('/', async (req, res, next) => {
+    try{
+        console.log("IN THE TRY")
+        const allUsers = await getAllUsers();
+
+        console.log("getting all users", allUsers)
+
+        res.send(allUsers);
+    } catch(error) {
+        next(error);
+    }
 });
 
 usersRouter.post('/register', async (req, res, next) => {
@@ -58,14 +71,13 @@ usersRouter.post('/login', async (req, res, next) => {
 
     try {
         const { username, password } = req.body;
-        if (!username || !password) {
-            return next({
-                name: "MissingCredentialsError",
-                message: "Please supply both a username and password"
-            });
+        console.log('reqbody',req.body)
+        if (username.length === 0 || password.length === 0) {
+            console.log("Inside no PW");
+            return next(console.error());
         }
 
-        const user = await getUser({ username, password });
+        const user = await getUser( username, password );
         if (!user) {
             return next({
                 name: 'IncorrectCredentialsError',
@@ -81,8 +93,8 @@ usersRouter.post('/login', async (req, res, next) => {
             token: token
         })
 
-    } catch ({ name, message }) {
-        return next({ name, message });
+    } catch (error) {
+        next(error);
     }
 })
 
