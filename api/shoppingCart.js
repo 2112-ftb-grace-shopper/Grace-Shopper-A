@@ -19,6 +19,7 @@ shoppingCartRouter.get('/', requireUser, async (req, res, next) => {
         const id = user.id
         console.log('userID', id)
         console.log('in this try')
+        // get attachProductToProductCart should be called here instead. That is our cart function
         const shoppingCart = await getShoppingCartItemsByUser(id);
         console.log("shoppingCart ==>", shoppingCart)
         return res.send(shoppingCart)

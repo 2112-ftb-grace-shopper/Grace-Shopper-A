@@ -35,8 +35,11 @@ useEffect(() => {
 
   return (
     <div className="app-container">
-      <h1>HELLO WORLD</h1>
-        <>
+      <div id='header'>
+      <h1>Welcome to Cars-R-Us!</h1>
+
+
+        <div className='nav-bar'>
           <Navbar isLoggedIn={isLoggedIn} loggedInUsername={loggedInUsername} />
         <Switch>
           <Route path='/searchbar'>
@@ -61,10 +64,10 @@ useEffect(() => {
             <Adminpage /> 
           </Route>
         </Switch>
-        </>
-        {/* <p>API Status: {APIHealth}</p>  */}
-        
+        </div>
+        </div>
     </div>
+
   );
 };
 

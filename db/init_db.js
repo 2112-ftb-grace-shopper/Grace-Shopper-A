@@ -59,6 +59,8 @@ async function createTables() {
         "cartId" INTEGER REFERENCES cart(id)
       );
       `);
+      // add id to product_cart
+      // add quantity
       console.log('Finished building the tables!');
   } catch (error) {
     console.log('Error bulding tables!');

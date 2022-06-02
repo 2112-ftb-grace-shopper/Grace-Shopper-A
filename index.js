@@ -1,6 +1,8 @@
 // This is the Web Server
+require('dotenv').config();
 const express = require('express');
 const server = express();
+// call .env file
 const PORT = process.env.PORT || 4000;
 
 
