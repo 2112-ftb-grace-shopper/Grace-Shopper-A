@@ -1,3 +1,5 @@
+// import { token } from "morgan";
+
 const baseURL = '/api';
 
 export const registerNewUser = async (userObject) => {
@@ -157,3 +159,25 @@ export const postProducts = async (model,
             throw error
         }
     }
+
+    // export const postProductToShoppingCart = async (cartId, productId) => {
+    //     const token = localStorage.getItem('UserToken');
+    //     let response;
+    //     try{
+    //         response = await fetch(`${baseURL}/shoppingCart/${cartId}/shoppingCart`,{
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': "Bearer" + token
+    //             },
+    //             body: JSON.stringify(
+    //                 {cartId, productId}
+    //             )
+    //         })
+    //         const postedProductsToShoppingCart = await response.json();
+    //         return postedProductsToShoppingCart;
+    //     } catch(error){
+    //         console.log("Error posting product to shopping cart!")
+    //         throw error
+    //     }
+    // }

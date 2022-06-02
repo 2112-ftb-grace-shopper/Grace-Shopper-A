@@ -1,6 +1,8 @@
 // This is the Web Server
+require('dotenv').config();
 const express = require('express');
 const server = express();
+// call .env file
 const PORT = process.env.PORT || 4000;
 
 
@@ -39,7 +41,8 @@ const handle = server.listen(PORT, async () => {
     await client.connect();
     console.log('Database is open for business!');
   } catch (error) {
-    console.error('Database is closed for repairs!\n', error);
+    throw error
+    // console.error('Database is closed for repairs!\n', error);
   }
 });
 

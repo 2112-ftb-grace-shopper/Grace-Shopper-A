@@ -15,13 +15,17 @@ const createProductCart = async ( { productId, cartId }) => {
 }
 
 // front end displaying products to shopping cart, one at a time
+// getting products to cart
+// select all from product cart
+// join the product cart items to the cart table
+// filter by cartId
 const attachProductsToProductCart = async (cartId) => {
 
     try{
 
         const { rows: products } = await client.query(`
-        SELECT products.* FROM products 
-        JOIN product_cart ON product_cart."productId" = products.id
+        SELECT product_cart.* FROM product_cart 
+        JOIN product ON product_cart."productId" = products.id
         WHERE product_cart."cartId" = ${cartId}
         `)
 

@@ -1,6 +1,7 @@
 // grab our db client connection to use with our adapters
 const client = require('../client');
 const bcrypt = require('bcrypt');
+const { user } = require('pg/lib/defaults');
 // function to create a user
 
 const createUser = async ({username, password, isAdmin}) => {
@@ -15,12 +16,32 @@ const createUser = async ({username, password, isAdmin}) => {
       VALUES($1, $2)
       ON CONFLICT (username) DO NOTHING
       RETURNING username, id, "isAdmin";
-      `, [username, password])
+      `, [username, hashedPassword])
 
-      password = hashedPassword;
 
       return users;
   } catch(error) {
+      throw error
+  }
+}
+
+const getAllUsers = async () => {
+  try{
+      console.log('AM I IN THIS USERS TRY')
+      const { rows: users } = await client.query(`
+      SELECT * 
+      FROM users
+      `)
+    // delete password
+    console.log('USER ==>', users)
+      const password = users.password;
+      if(password){
+        delete password
+      }
+      console.log("these are our users", users)
+
+      return users
+  } catch(error){
       throw error
   }
 }
@@ -57,7 +78,10 @@ const getUser = async ( username, password ) => {
 		const user = await getUserByUsername(username);
     console.log("this is the user function:", user)
 		const hashedPassword = user.password;
+    
 		const verifyPassword = await bcrypt.compare(password, hashedPassword);
+    console.log('PW', password);
+    console.log('HPW', hashedPassword);
     console.log('verifiedPW', verifyPassword)
 
 		if (verifyPassword) {
@@ -147,5 +171,6 @@ module.exports = {
   createUser,
   getUserByUsername,
   getUserById,
-  getUser
+  getUser,
+  getAllUsers
 };
