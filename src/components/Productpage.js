@@ -19,8 +19,7 @@ import tenthCar from '../assets/images/10.png';
 import { user } from "pg/lib/defaults";
 
 const Productpage = (props) => {
-    const { products, setProducts } = props;
-
+    const { products, setProducts, shoppingCart, setShoppingCart } = props;
 
     useEffect(() => {
         (async () => {
@@ -39,7 +38,6 @@ const Productpage = (props) => {
         })();
     }, []);
 
-
     const handleAddToCartButton = async (event) => {
         event.preventDefault();
         let userId = localStorage.getItem('userId')
@@ -52,6 +50,8 @@ const Productpage = (props) => {
 
         // either store logged in user
 
+        const newShoppingCart = [...shoppingCart, products]
+        setShoppingCart(newShoppingCart);
     }
 
     return(
