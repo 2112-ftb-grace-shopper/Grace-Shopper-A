@@ -2,6 +2,7 @@ import React, { useEffect, useState} from "react";
 import { Link } from 'react-router-dom';
 import { getAllProducts, postProducts } from "../api/index";
 import '../style/Productpage.css';
+import { getMyShoppingCart } from "../api/index";
 // import Card from '@material-ui/core/Card'
 // import { CardContent } from '@material-ui/core'
 
@@ -51,7 +52,15 @@ const Productpage = (props) => {
     const handleAddToCartButton = async (event) => {
         event.preventDefault();
         let userId = localStorage.getItem('userId')
-        console.log('user', user)
+        console.log('user', userId);
+        const shoppingCart = await getMyShoppingCart()
+        console.log('PRODUCTSHOPPINGCART', shoppingCart);
+
+        shoppingCart.push(products)
+        localStorage.setItem('cart', JSON.stringify(shoppingCart));
+
+        // either store logged in user
+        
     }
     //     const newProduct = await postProducts( model, make, year, color, cost, min_city_mpg, max_city_mpg, min_hwy_mpg, max_hwy_mpg )
     

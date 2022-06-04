@@ -133,7 +133,8 @@ export const postProducts = async (model,make,year,color,cost,min_city_mpg,max_c
         let response;
         console.log('username ==>', username)
         try{
-
+            // if logged in return json response
+            if(token){
             response = await fetch(`${baseURL}/shoppingCart`, {
                 method: 'GET',
                 headers: {
@@ -142,7 +143,14 @@ export const postProducts = async (model,make,year,color,cost,min_city_mpg,max_c
                 }
             })
             const json = await response.json()
-            return json;
+
+
+            return json
+        } else {
+            // non logged in users saved to local storage
+           const notLoggedInCart = localStorage.getItem('cart');
+           // un-stringifies
+           return JSON.parse(notLoggedInCart)        }
     
         } catch(error) {
             console.log('Error getting shopping cart');

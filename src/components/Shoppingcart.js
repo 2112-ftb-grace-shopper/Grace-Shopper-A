@@ -29,6 +29,10 @@ const Shoppingcart = (props) => {
         })();
     },[]);
 
+
+    // need to be able to add the product that is on localStorage or logged in user to shoppingCart object
+
+    
     // const addToCart = (productId) => {
     //     if(productId) {
     //         shoppingCart.add(productId)
