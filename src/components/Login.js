@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import '../style/Login.css';
 
 const Login = (props) => {
-  // const [user, setUser] = useState("");
-  // const [password, setPassword] = useState("");
   const [hasTriggeredError, setHasTriggeredError ] = useState(false);
   const {isLoggedIn, setIsLoggedIn, username, setUsername, password, setPassword} = props;
 
@@ -19,6 +17,7 @@ const Login = (props) => {
       username: username,
       password: password,
     };
+
 
   const didLoginWork = await loginUser(userObject);
   if(didLoginWork === false){
@@ -68,10 +67,11 @@ const Login = (props) => {
             placeholder="Enter Password"
             onChange={handlePasswordChange}
           ></input>
-          <button type="submit" onClick={handleLogin}>
-            Login
-            <Link to='/product'></Link>
-          </button>
+          <Link to='/product'>
+            <button type="submit" onClick={handleLogin}>
+              Login
+            </button>
+          </Link>
           <button type="submit" onClick={handleLogOut}>
             Log Out
           </button>
