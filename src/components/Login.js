@@ -37,12 +37,12 @@ const Login = (props) => {
   };
 
   const handleLogOut = () => {
-    localStorage.removeItem("cars-R-Us");
+    localStorage.removeItem("userToken");
     setIsLoggedIn(false);
   };
 
   useEffect(() => {
-    setIsLoggedIn(!localStorage.getItem("cars-R-Us"));
+    setIsLoggedIn(!localStorage.getItem("userToken"));
   }, []);
 
     // create a landing page for if login was  successful
@@ -77,40 +77,5 @@ const Login = (props) => {
     </>
   );
 };
-        // <form id="textinput">
-        //     <h1>Login to Account</h1>
-        //     <label htmlFor="username">Username: </label>
-        //     <input
-        //         type="text"
-        //         id="username"
-        //         name="username"
-        //         minLength="8"
-        //         value={username}
-        //         onChange={(event) => { setUsername(event.target.value) }}
-        //         required
-        //     >
-        //     </input>
-        //     <br />
 
-        //     <label htmlFor="pwd">Password: </label>
-        //     <input
-        //         type="password"
-        //         id="pwd"
-        //         name="pwd"
-        //         minLength="8"
-        //         value={password}
-        //         onChange={(event) => { setPassword(event.target.value) }}
-        //         required
-        //     ></input>
-        //     <br />
-        // <button
-        //     onClick={submit}>Login</button>
-        // <br />
-        // </form>
-
-    //   <Link to="/register">
-    //     <a>
-    //         Don't have an account? Register here.
-    //     </a>
-    // </Link>
 export default Login
