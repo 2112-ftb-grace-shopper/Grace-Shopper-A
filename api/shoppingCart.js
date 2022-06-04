@@ -86,16 +86,4 @@ shoppingCartRouter.delete('/:shoppingCartId', requireUser, async (req, res, next
     }
 });
 
-// shoppingCartRouter.post('/:cartId/shoppingCart', async (req, res, next) => {
-//     const cartId = req.params;
-
-//     try{
-//         const productOnShoppingCart = await attachProductsToProductCart(cartId);
-
-//         res.send(productOnShoppingCart);
-//     } catch (error){
-//         throw error;
-//     }
-// })
-
 module.exports = shoppingCartRouter
