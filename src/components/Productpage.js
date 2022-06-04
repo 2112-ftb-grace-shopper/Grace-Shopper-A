@@ -19,17 +19,7 @@ import tenthCar from '../assets/images/10.png';
 import { user } from "pg/lib/defaults";
 
 const Productpage = (props) => {
-    const { products, setProducts } = props;
-    // const [ productId, setProductId] = useState(0);
-    // const [model, setModel] = useState('');
-    // const [make, setMake ] = useState('');
-    // const [year, setYear] = useState(0);
-    // const [color, setColor] = useState('')
-    // const [cost, setCost ] = useState(0);
-    // const [min_city_mpg, setMin_City_Mpg] = useState(0);
-    // const [max_city_mpg, setMax_City_Mpg] = useState(0);
-    // const [min_hwy_mpg, setMin_Hwy_Mpg] = useState(0);
-    // const [max_hwy_mpg, setMax_Hwy_Mpg] = useState(0);
+    const { products, setProducts, shoppingCart, setShoppingCart } = props;
 
     useEffect(() => {
         (async () => {
@@ -48,7 +38,6 @@ const Productpage = (props) => {
         })();
     }, []);
 
-
     const handleAddToCartButton = async (event) => {
         event.preventDefault();
         let userId = localStorage.getItem('userId')
@@ -60,30 +49,10 @@ const Productpage = (props) => {
         localStorage.setItem('cart', JSON.stringify(shoppingCart));
 
         // either store logged in user
-        
+
+        const newShoppingCart = [...shoppingCart, products]
+        setShoppingCart(newShoppingCart);
     }
-    //     const newProduct = await postProducts( model, make, year, color, cost, min_city_mpg, max_city_mpg, min_hwy_mpg, max_hwy_mpg )
-    
-    //     const model = newProduct.model;
-    //     const make = newProduct.make;
-    //     const year = newProduct.year;
-    //     const color = newProduct.color;
-    //     const cost = newProduct.cost;
-    //     const min_city_mpg = newProduct.min_city_mpg;
-    //     const max_city_mpg = newProduct.max_city_mpg;
-    //     const min_hwy_mpg = newProduct.min_hwy_mpg;
-    //     const max_hwy_mpg = newProduct.max_hwy_mpg;
-
-    //     setModel(model);
-    //     setMake(make);
-    //     setYear(year);
-    //     setColor(color);
-    //     setCost(cost);
-    //     setMin_City_Mpg(min_city_mpg);
-    //     setMax_City_Mpg(max_city_mpg);
-    //     setMin_Hwy_Mpg(min_hwy_mpg);
-    //     setMax_Hwy_Mpg(max_hwy_mpg);
-
 
     return(
         <div>
