@@ -29,10 +29,8 @@ usersRouter.post('/register', async (req, res, next) => {
     try {
         console.log("IN THE TRY")
         const { username, password } = req.body;
-        const newUser = await createUser({
-            username,
-            password
-        });
+        console.log('===hitting here===', req.body);
+        const newUser = await createUser({username,password});
         console.log('=====newUSER=====', newUser)
         const _user = await getUserByUsername(username);
         console.log("=====PW ===", password)

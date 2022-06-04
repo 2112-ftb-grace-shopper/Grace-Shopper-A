@@ -11,29 +11,33 @@ export const registerNewUser = async (userObject) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            username: userObject.user,
+            username: userObject.username,
             password: userObject.password
         }),
     });
     const json = await response.json();
+    const user = json.user
+    
     console.log('JSON', json);
+    console.log('USER==>', user)
     console.log('userObject', userObject)
 
-    localStorage.setItem('userToken', json.token)
-    localStorage.setItem('Username', userObject.user);
-    localStorage.setItem('userId', userObject.id)
+    localStorage.setItem('userToken', json.token);
+    localStorage.setItem('Username', user.username);
+    localStorage.setItem('userId', user.id);
 
     return json;
 }
 
 export const loginUser = async (userObject) => {
+    console.log('userobject ==>', userObject)
     const response = await fetch(`${baseURL}/users/login`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            username: userObject.user,
+            username: userObject.username,
             password: userObject.password
         }),
     });
@@ -41,13 +45,20 @@ export const loginUser = async (userObject) => {
     console.log('RESPONSE', response)
 
     const json = await response.json();
-    console.log('json', json);
+    const user = json.user
+    
+    console.log('JSON', json);
+    console.log('JSON USER==>', user)
+    console.log('userObject', userObject)
 
-    localStorage.setItem('userToken', json.token)
-    localStorage.setItem('Username', userObject.user);
-    localStorage.setItem('userId', userObject.id)
-
-    return json;
+    if(!user){
+        return false
+    } else {
+        localStorage.setItem('userToken', json.token);
+        localStorage.setItem('Username', user.username);
+        localStorage.setItem('userId', user.id);  
+    }
+    return user;
 }
 
 export const testAuthentication = async (token) => {

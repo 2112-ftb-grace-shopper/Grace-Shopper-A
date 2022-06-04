@@ -18,6 +18,8 @@ const App = () => {
   const [loggedInUsername, setLoggedInUsername] = useState('');
   const[shoppingCart, setShoppingCart] = useState([]);
   const [ products, setProducts ] = useState([])
+  const [username, setUsername] = useState("");
+  const [password, setPassword]= useState("");
 
 async function isValidJWT() {
   const token = localStorage.getItem('cars-R-Us_JWT');
@@ -45,10 +47,10 @@ useEffect(() => {
             <Searchbar  /> 
           </Route>
           <Route path='/login'>
-            <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} /> 
+            <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} username={username} setUsername={setUsername} password={password} setPassword={setPassword} /> 
           </Route>
           <Route path ='/register'>
-            <RegisterUser />
+            <RegisterUser username={username} setUsername={setUsername} password={password} setPassword={setPassword} />
           </Route>
           <Route path ='/product'>
             <Productpage products={products} setProducts={setProducts}></Productpage>

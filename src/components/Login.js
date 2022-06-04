@@ -4,29 +4,32 @@ import { Link } from 'react-router-dom';
 import '../style/Login.css';
 
 const Login = (props) => {
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
-  const {isLoggedIn, setIsLoggedIn} = props;
+  // const [user, setUser] = useState("");
+  // const [password, setPassword] = useState("");
+  const [hasTriggeredError, setHasTriggeredError ] = useState(false);
+  const {isLoggedIn, setIsLoggedIn, username, setUsername, password, setPassword} = props;
 
   const handleLogin = async (event) => {
     console.log("Logging in...");
-    // event.preventDefault();
-    // setUser("");
-    // setPassword("")
-    const registerInfo = {
-      userId: user.id,
-      user: user,
+    event.preventDefault();
+    setUsername("");
+    setPassword("");
+
+    const userObject = {
+      username: username,
       password: password,
     };
 
-    loginUser(registerInfo);
-
-    setUser("");
-    setPassword("");
+  const didLoginWork = await loginUser(userObject);
+  if(didLoginWork === false){
+    setHasTriggeredError(true);
+  } else{
+    setIsLoggedIn(didLoginWork);
+  }
   };
 
   const handleUserChange = (event) => {
-    setUser(event.target.value);
+    setUsername(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -51,7 +54,7 @@ const Login = (props) => {
           <label>Username</label>
           <input
             type="text"
-            value={user}
+            value={username}
             placeholder="Enter Username"
             onChange={handleUserChange}
           ></input>
