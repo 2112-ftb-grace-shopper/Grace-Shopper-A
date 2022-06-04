@@ -26,6 +26,8 @@ const Login = (props) => {
   } else{
     setIsLoggedIn(didLoginWork);
   }
+
+  this.props.history.push("/product");
   };
 
   const handleUserChange = (event) => {
@@ -39,6 +41,8 @@ const Login = (props) => {
   const handleLogOut = () => {
     localStorage.removeItem("userToken");
     setIsLoggedIn(false);
+
+    this.props.history.push("/login");
   };
 
   useEffect(() => {
