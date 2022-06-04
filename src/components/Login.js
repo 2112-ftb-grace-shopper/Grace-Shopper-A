@@ -70,6 +70,7 @@ const Login = (props) => {
           ></input>
           <button type="submit" onClick={handleLogin}>
             Login
+            <Link to='/product'></Link>
           </button>
           <button type="submit" onClick={handleLogOut}>
             Log Out
