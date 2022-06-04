@@ -19,13 +19,13 @@ const createProductCart = async ( { productId, cartId }) => {
 // select all from product cart
 // join the product cart items to the cart table
 // filter by cartId
-const attachProductsToProductCart = async (cartId) => {
+const getShoppingCart = async (cartId) => {
 
     try{
 
         const { rows: products } = await client.query(`
         SELECT product_cart.* FROM product_cart 
-        JOIN product ON product_cart."productId" = products.id
+        JOIN products ON product_cart."productId" = products.id
         WHERE product_cart."cartId" = ${cartId}
         `)
 
@@ -54,7 +54,7 @@ const getCartByShopperId = async () => {
 }
 
 module.exports = {
-    attachProductsToProductCart,
+    getShoppingCart,
     createProductCart,
     getCartByShopperId
 }

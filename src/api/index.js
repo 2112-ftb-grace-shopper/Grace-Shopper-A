@@ -3,44 +3,62 @@
 const baseURL = '/api';
 
 export const registerNewUser = async (userObject) => {
-    console.log("error catching")
+    
+    console.log("userObject", userObject)
     const response = await fetch(`${baseURL}/users/register`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            username: userObject.user,
+            username: userObject.username,
             password: userObject.password
         }),
     });
     const json = await response.json();
-    console.log(json);
+    const user = json.user
+    
+    console.log('JSON', json);
+    console.log('USER==>', user)
+    console.log('userObject', userObject)
 
-    localStorage.setItem('userToken', json.token)
-    localStorage.setItem('Username', userObject.user);
+    localStorage.setItem('userToken', json.token);
+    localStorage.setItem('Username', user.username);
+    localStorage.setItem('userId', user.id);
 
     return json;
 }
 
 export const loginUser = async (userObject) => {
+    console.log('userobject ==>', userObject)
     const response = await fetch(`${baseURL}/users/login`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            username: userObject.user,
+            username: userObject.username,
             password: userObject.password
         }),
     });
+    console.log('userObject', userObject)
+    console.log('RESPONSE', response)
 
     const json = await response.json();
-    console.log(json);
-    localStorage.setItem('userToken', json.token)
-    localStorage.setItem('Username', userObject.user);
+    const user = json.user
+    
+    console.log('JSON', json);
+    console.log('JSON USER==>', user)
+    console.log('userObject', userObject)
 
-    return json;
+    if(!user){
+        return false
+    } else {
+        localStorage.setItem('userToken', json.token);
+        localStorage.setItem('Username', user.username);
+        localStorage.setItem('userId', user.id);  
+    }
+    return user;
 }
 
 export const testAuthentication = async (token) => {
@@ -77,15 +95,7 @@ export const getAllProducts = async () => {
     }
 }
 
-export const postProducts = async (model,
-    make,
-    year,
-    color,
-    cost,
-    min_city_mpg,
-    max_city_mpg,
-    min_hwy_mpg,
-    max_hwy_mpg) => {
+export const postProducts = async (model,make,year,color,cost,min_city_mpg,max_city_mpg, min_hwy_mpg,max_hwy_mpg) => {
         const token = localStorage.getItem('UserToken');
         let response;
         try{
@@ -123,7 +133,8 @@ export const postProducts = async (model,
         let response;
         console.log('username ==>', username)
         try{
-
+            // if logged in return json response
+            if(token){
             response = await fetch(`${baseURL}/shoppingCart`, {
                 method: 'GET',
                 headers: {
@@ -132,7 +143,14 @@ export const postProducts = async (model,
                 }
             })
             const json = await response.json()
-            return json;
+
+
+            return json
+        } else {
+            // non logged in users saved to local storage
+           const notLoggedInCart = localStorage.getItem('cart');
+           // un-stringifies
+           return JSON.parse(notLoggedInCart)        }
     
         } catch(error) {
             console.log('Error getting shopping cart');
@@ -160,24 +178,24 @@ export const postProducts = async (model,
         }
     }
 
-    // export const postProductToShoppingCart = async (cartId, productId) => {
-    //     const token = localStorage.getItem('UserToken');
-    //     let response;
-    //     try{
-    //         response = await fetch(`${baseURL}/shoppingCart/${cartId}/shoppingCart`,{
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': "Bearer" + token
-    //             },
-    //             body: JSON.stringify(
-    //                 {cartId, productId}
-    //             )
-    //         })
-    //         const postedProductsToShoppingCart = await response.json();
-    //         return postedProductsToShoppingCart;
-    //     } catch(error){
-    //         console.log("Error posting product to shopping cart!")
-    //         throw error
-    //     }
-    // }
+    export const postProductToShoppingCart = async (cartId, productId) => {
+        const token = localStorage.getItem('UserToken');
+        let response;
+        try{
+            response = await fetch(`${baseURL}/${cartId}/shoppingCart`,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': "Bearer" + token
+                },
+                body: JSON.stringify(
+                    {cartId, productId}
+                )
+            })
+            const postedProductsToShoppingCart = await response.json();
+            return postedProductsToShoppingCart;
+        } catch(error){
+            console.log("Error posting product to shopping cart!")
+            throw error
+        }
+    }
