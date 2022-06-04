@@ -1,6 +1,6 @@
 
    
-import React, {useEffect, useState } from "react";
+import React, {useEffect, useInsertionEffect, useState } from "react";
 import { getAllProducts, getMyShoppingCart, postProductToShoppingCart, postProducts } from "../api";
 import { Link } from "react-router-dom";
 import '../style/Shoppingcart.css';
@@ -23,25 +23,32 @@ const Shoppingcart = (props) => {
 
     useEffect(() => {
         (async () => {
-            const shoppingCart = await getMyShoppingCart();
+            const newCart = await getMyShoppingCart();
             console.log(shoppingCart)
-            setShoppingCart(shoppingCart);
+            setShoppingCart(newCart);
         })();
     },[]);
 
 
+    const addProductToLoggedInCart = async () => {
+        const product = await getAllProducts();
+
+        // new cart state with products inside
+        const newCart = [ ...shoppingCart, product ];
+
+        setShoppingCart(newCart)
+    }
+
     // need to be able to add the product that is on localStorage or logged in user to shoppingCart object
 
-    
+
     // const addToCart = (productId) => {
     //     if(productId) {
     //         shoppingCart.add(productId)
     //     }
     // }
 
-    
-
-
+        console.log('SHOPPING CART ===>', shoppingCart);
     return (
 
         <div className="shoppingcart">

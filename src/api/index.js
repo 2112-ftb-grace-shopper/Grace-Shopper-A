@@ -143,8 +143,7 @@ export const postProducts = async (model,make,year,color,cost,min_city_mpg,max_c
                 }
             })
             const json = await response.json()
-
-
+            console.log('JSONCART ==>', json)
             return json
         } else {
             // non logged in users saved to local storage

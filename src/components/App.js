@@ -24,6 +24,7 @@ const App = () => {
 async function isValidJWT() {
   const token = localStorage.getItem('cars-R-Us_JWT');
   if(!token) setIsLoggedIn(false);
+  
   else {
       const isValid = await testAuthentication(token);
       setLoggedInUsername(isValid.username);
