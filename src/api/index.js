@@ -1,5 +1,3 @@
-// import { token } from "morgan";
-
 const baseURL = '/api';
 
 export const registerNewUser = async (userObject) => {
@@ -59,24 +57,6 @@ export const loginUser = async (userObject) => {
         localStorage.setItem('userId', user.id);  
     }
     return user;
-}
-
-export const testAuthentication = async (token) => {
-    const url = `${baseURL}/users/me`;
-    const response = await fetch(url, {
-        method: "GET",
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-    }).then(response => response.json())
-        .then(result => {
-            console.log(result);
-            return result;
-        })
-        .catch(console.error);
-
-    return response;
 }
 
 export const getAllProducts = async () => {
@@ -143,8 +123,7 @@ export const postProducts = async (model,make,year,color,cost,min_city_mpg,max_c
                 }
             })
             const json = await response.json()
-
-
+            console.log('JSONCART ==>', json)
             return json
         } else {
             // non logged in users saved to local storage
@@ -154,7 +133,7 @@ export const postProducts = async (model,make,year,color,cost,min_city_mpg,max_c
     
         } catch(error) {
             console.log('Error getting shopping cart');
-            throw error
+            throw error;
         }
     }
 

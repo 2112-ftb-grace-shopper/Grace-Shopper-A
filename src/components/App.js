@@ -22,11 +22,10 @@ const App = () => {
   const [password, setPassword]= useState("");
 
 async function isValidJWT() {
-  const token = localStorage.getItem('cars-R-Us_JWT');
+  const token = localStorage.getItem('userToken');
   if(!token) setIsLoggedIn(false);
+  
   else {
-      const isValid = await testAuthentication(token);
-      setLoggedInUsername(isValid.username);
       setIsLoggedIn(true);
   }
 }

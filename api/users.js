@@ -102,47 +102,4 @@ usersRouter.post('/login', async (req, res, next) => {
     }
 })
 
-usersRouter.get('/', async (req, res, next) => {
-    const prefix = 'Bearer ';
-    const auth = req.header('Authorization');
-    if (!auth) {
-        return next({
-            name: 'AuthorizationMissingError',
-            message: 'Authorization is missing from request'
-        });
-    } else if (auth.startsWith(prefix)) {
-        const token = auth.slice(prefix.length);
-        try {
-            const { id } = jwt.verify(token, process.env.JWT_SECRET);
-
-            if (id) {
-                const user = await getUserById(id);
-                return res.send(user);
-            }
-        } catch ({ name, message }) {
-            return next({ name, message });
-        }
-    } else {
-        next({
-            name: 'AuthorizationHeaderError',
-            message: `Authorization token must start with ${prefix}`
-        });
-    }
-
-})
-
-// usersRouter.get('/:username/shoppingCart', async (req, res, next) => {
-//     try{
-//         console.log('In this route!!')
-//         const username = req.params.username;
-//         console.log("USERNAME", username)
-//         const shoppingCart = await getShoppingCartItemsByUser({username});
-//         return res.send(shoppingCart)
-
-//     } catch (error) {
-//         return next (error)
-//     }
-// })
-
-
 module.exports = usersRouter;
