@@ -1,4 +1,5 @@
-const apiRouter = require('express').Router();
+const express = require('express');
+const apiRouter = express.Router();
 
 const jwt = require('jsonwebtoken');
 const { getUserById } = require('../db/models/users');
@@ -21,11 +22,11 @@ apiRouter.use(async (req, res, next) => {
     const token = auth.slice(prefix.length);
     console.log("TOKEN ==>", token)
     try {
-      const { id } = jwt.verify(token, `${JWT_SECRET}`);
+      const { id }  = jwt.verify(token, `${JWT_SECRET}`);
 
       if (id) {
         req.user = await getUserById(id);
-        console.log('requser', req.user)
+        console.log('====requser=====', req.user)
         next();
       }
     } catch (error) {

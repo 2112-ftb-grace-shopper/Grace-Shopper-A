@@ -51,10 +51,11 @@ async function createTables() {
         id SERIAL PRIMARY KEY,
         "shopperId" INTEGER REFERENCES users(id),
         "orderTotal" INTEGER,
-        "itemTotal" INTEGER
+        quantity INTEGER
       );
 
       CREATE TABLE product_cart(
+        id SERIAL PRIMARY KEY,
         "productId" INTEGER REFERENCES products(id),
         "cartId" INTEGER REFERENCES cart(id)
       );
@@ -126,7 +127,7 @@ async function createInitialShoppingCart() {
     console.log("This is the user ===>", user)
 
     const shoppingCartToCreate = [
-      {id: 1, shopperId: user.id, orderTotal: 123456, itemTotal: 3}
+      {id: 1, shopperId: user.id, orderTotal: 123456, quantity: 3}
     ]
 
     const shoppingCarts = await Promise.all(shoppingCartToCreate.map((shoppingCart) => createShoppingCart(shoppingCart)));

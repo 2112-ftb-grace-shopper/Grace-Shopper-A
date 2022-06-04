@@ -5,7 +5,7 @@ const { getShoppingCartItemsByUser } = require('../db/models/shoppingCart');
 const { default: createBreakpoints } = require('@material-ui/core/styles/createBreakpoints');
 // const { createProduct, getProductById, updateProduct, getUserByUsername, attachProductsToProductCart } = require('../db');
 const productsRouter = require('./products');
-const {attachProductsToProductCart} = require('../db/models/productCart')
+const {getShoppingCart} = require('../db/models/productCart')
 
 shoppingCartRouter.use((req, res, next) => {
     console.log('A request is being made to /shoppingcart');
@@ -16,11 +16,14 @@ shoppingCartRouter.get('/', requireUser, async (req, res, next) => {
     try {
         // console.log('require', requ)
         const user = req.user;
+        console.log('shoppingCart user ==>', user)
         const id = user.id
+        cart = req.body
+        console.log('cart ==>', cart)
         console.log('userID', id)
         console.log('in this try')
         // get attachProductToProductCart should be called here instead. That is our cart function
-        const shoppingCart = await getShoppingCartItemsByUser(id);
+        const shoppingCart = await getShoppingCart(id);
         console.log("shoppingCart ==>", shoppingCart)
         return res.send(shoppingCart)
     } catch ( error ) {
@@ -31,8 +34,8 @@ shoppingCartRouter.get('/', requireUser, async (req, res, next) => {
 shoppingCartRouter.post('/', requireUser, async (req, res, next) => {
     try {
         const shopperId = req.user.id;
-        const { orderTotal, itemTotal } = req.body;
-        const shoppingCart = await shoppingCart({ shopperId, orderTotal, itemTotal });
+        const { orderTotal, quantity } = req.body;
+        const shoppingCart = await shoppingCart({ shopperId, orderTotal, quantity });
         console.log(shoppingCart)
         return res.send(shoppingCart);
 
