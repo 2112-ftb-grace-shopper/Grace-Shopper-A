@@ -14,6 +14,7 @@ const Login = (props) => {
     // setUser("");
     // setPassword("")
     const registerInfo = {
+      userId: user.id,
       user: user,
       password: password,
     };
@@ -27,6 +28,7 @@ const Login = (props) => {
   const handleUserChange = (event) => {
     setUser(event.target.value);
   };
+
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
@@ -40,6 +42,7 @@ const Login = (props) => {
     setIsLoggedIn(!localStorage.getItem("cars-R-Us"));
   }, []);
 
+    // create a landing page for if login was  successful
 
     return (
       <>

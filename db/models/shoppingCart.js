@@ -1,12 +1,12 @@
 const client = require('../client')
 
-const createShoppingCart = async({ shopperId, orderTotal, itemTotal }) => {
+const createShoppingCart = async({ shopperId, orderTotal, quantity }) => {
     try{
         const {rows: [ cart ] } = await client.query(`
-        INSERT INTO cart("shopperId", "orderTotal", "itemTotal")
+        INSERT INTO cart("shopperId", "orderTotal", quantity)
         VALUES ($1, $2, $3)
         RETURNING *;
-        `, [shopperId, orderTotal, itemTotal] )
+        `, [shopperId, orderTotal, quantity] )
 
         return cart;
     } catch(error){
@@ -32,7 +32,7 @@ const getShoppingCartItemsByUser = async (id) => {
     }
 }
 
-async function updateCart({ id, orderTotal, itemTotal }) {
+async function updateCart({ id, orderTotal, quantity }) {
     const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 1}`).join(', ');
      try{
          if(setString.length < 0 ) return undefined 

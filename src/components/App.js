@@ -38,7 +38,6 @@ useEffect(() => {
       <div id='header'>
       <h1>Welcome to Cars-R-Us!</h1>
 
-
         <div className='nav-bar'>
           <Navbar isLoggedIn={isLoggedIn} loggedInUsername={loggedInUsername} />
         <Switch>

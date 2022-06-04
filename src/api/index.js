@@ -3,7 +3,8 @@
 const baseURL = '/api';
 
 export const registerNewUser = async (userObject) => {
-    console.log("error catching")
+    
+    console.log("userObject", userObject)
     const response = await fetch(`${baseURL}/users/register`, {
         method: "POST",
         headers: {
@@ -15,10 +16,12 @@ export const registerNewUser = async (userObject) => {
         }),
     });
     const json = await response.json();
-    console.log(json);
+    console.log('JSON', json);
+    console.log('userObject', userObject)
 
     localStorage.setItem('userToken', json.token)
     localStorage.setItem('Username', userObject.user);
+    localStorage.setItem('userId', userObject.id)
 
     return json;
 }
@@ -34,11 +37,15 @@ export const loginUser = async (userObject) => {
             password: userObject.password
         }),
     });
+    console.log('userObject', userObject)
+    console.log('RESPONSE', response)
 
     const json = await response.json();
-    console.log(json);
+    console.log('json', json);
+
     localStorage.setItem('userToken', json.token)
     localStorage.setItem('Username', userObject.user);
+    localStorage.setItem('userId', userObject.id)
 
     return json;
 }
@@ -77,15 +84,7 @@ export const getAllProducts = async () => {
     }
 }
 
-export const postProducts = async (model,
-    make,
-    year,
-    color,
-    cost,
-    min_city_mpg,
-    max_city_mpg,
-    min_hwy_mpg,
-    max_hwy_mpg) => {
+export const postProducts = async (model,make,year,color,cost,min_city_mpg,max_city_mpg, min_hwy_mpg,max_hwy_mpg) => {
         const token = localStorage.getItem('UserToken');
         let response;
         try{
@@ -160,24 +159,24 @@ export const postProducts = async (model,
         }
     }
 
-    // export const postProductToShoppingCart = async (cartId, productId) => {
-    //     const token = localStorage.getItem('UserToken');
-    //     let response;
-    //     try{
-    //         response = await fetch(`${baseURL}/shoppingCart/${cartId}/shoppingCart`,{
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': "Bearer" + token
-    //             },
-    //             body: JSON.stringify(
-    //                 {cartId, productId}
-    //             )
-    //         })
-    //         const postedProductsToShoppingCart = await response.json();
-    //         return postedProductsToShoppingCart;
-    //     } catch(error){
-    //         console.log("Error posting product to shopping cart!")
-    //         throw error
-    //     }
-    // }
+    export const postProductToShoppingCart = async (cartId, productId) => {
+        const token = localStorage.getItem('UserToken');
+        let response;
+        try{
+            response = await fetch(`${baseURL}/${cartId}/shoppingCart`,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': "Bearer" + token
+                },
+                body: JSON.stringify(
+                    {cartId, productId}
+                )
+            })
+            const postedProductsToShoppingCart = await response.json();
+            return postedProductsToShoppingCart;
+        } catch(error){
+            console.log("Error posting product to shopping cart!")
+            throw error
+        }
+    }
