@@ -27,6 +27,7 @@ async function isValidJWT() {
   
   else {
       const isValid = await testAuthentication(token);
+      console.log('ISVALID', isValid)
       setLoggedInUsername(isValid.username);
       setIsLoggedIn(true);
   }
