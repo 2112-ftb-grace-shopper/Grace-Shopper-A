@@ -37,12 +37,12 @@ const Login = (props) => {
   };
 
   const handleLogOut = () => {
-    localStorage.removeItem("cars-R-Us");
+    localStorage.removeItem("userToken");
     setIsLoggedIn(false);
   };
 
   useEffect(() => {
-    setIsLoggedIn(!localStorage.getItem("cars-R-Us"));
+    setIsLoggedIn(!localStorage.getItem("userToken"));
   }, []);
 
     // create a landing page for if login was  successful
