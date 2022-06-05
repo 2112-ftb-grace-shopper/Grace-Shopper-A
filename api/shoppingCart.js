@@ -3,8 +3,9 @@ const shoppingCartRouter = express.Router();
 const { requireUser } = require('./utils');
 const { getShoppingCartItemsByUser } = require('../db/models/shoppingCart');
 const { default: createBreakpoints } = require('@material-ui/core/styles/createBreakpoints');
-const { createProduct, getProductById, updateProduct, getUserByUsername } = require('../db');
+// const { createProduct, getProductById, updateProduct, getUserByUsername, attachProductsToProductCart } = require('../db');
 const productsRouter = require('./products');
+const {getShoppingCart} = require('../db/models/productCart')
 
 shoppingCartRouter.use((req, res, next) => {
     console.log('A request is being made to /shoppingcart');
@@ -13,9 +14,16 @@ shoppingCartRouter.use((req, res, next) => {
 
 shoppingCartRouter.get('/', requireUser, async (req, res, next) => {
     try {
-        const userId = req.user.id;
+        // console.log('require', requ)
+        const user = req.user;
+        console.log('shoppingCart user ==>', user)
+        const id = user.id
+        cart = req.body
+        console.log('cart ==>', cart)
+        console.log('userID', id)
         console.log('in this try')
-        const shoppingCart = await getShoppingCartItemsByUser(userId);
+        // get attachProductToProductCart should be called here instead. That is our cart function
+        const shoppingCart = await getShoppingCart(id);
         console.log("shoppingCart ==>", shoppingCart)
         return res.send(shoppingCart)
     } catch ( error ) {
@@ -25,16 +33,16 @@ shoppingCartRouter.get('/', requireUser, async (req, res, next) => {
 
 shoppingCartRouter.post('/', requireUser, async (req, res, next) => {
     try {
-        const userId = req.user.id;
-        const { make, model, year, color } = req.body;
-        const product = await createProduct({ userId, make, model, year,
-        color });
+        const shopperId = req.user.id;
+        const { orderTotal, quantity } = req.body;
+        const shoppingCart = await shoppingCart({ shopperId, orderTotal, quantity });
+        console.log(shoppingCart)
         return res.send(shoppingCart);
 
     } catch (error) {
         return next(error);
     }
-});
+}); 
 
 shoppingCartRouter.patch('/:shoppingCartId', requireUser, async (req, res, next) => {
     try {
@@ -47,7 +55,7 @@ shoppingCartRouter.patch('/:shoppingCartId', requireUser, async (req, res, next)
                 name: 'AdminError',
                 message: 'User is not owner of this Admin'
             })
-        }
+    }
         
         const updateCart = await updateCart({ id: productId, make, model,
         year, color })
@@ -57,6 +65,7 @@ shoppingCartRouter.patch('/:shoppingCartId', requireUser, async (req, res, next)
         return next(error)
     }
 });
+
 
 shoppingCartRouter.delete('/:shoppingCartId', requireUser, async (req, res, next) => {
     try {

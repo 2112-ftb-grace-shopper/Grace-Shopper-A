@@ -1,9 +1,10 @@
 import React, { useEffect, useState} from "react";
 import { Link } from 'react-router-dom';
-import { getAllProducts } from "../api/index";
+import { getAllProducts, postProducts } from "../api/index";
 import '../style/Productpage.css';
-import Card from '@material-ui/core/Card'
-import { CardContent } from '@material-ui/core'
+import { getMyShoppingCart } from "../api/index";
+// import Card from '@material-ui/core/Card'
+// import { CardContent } from '@material-ui/core'
 
 import firstCar from '../assets/images/1.png';
 import secondCar from '../assets/images/2.png';
@@ -16,8 +17,9 @@ import eighthCar from '../assets/images/8.jpeg';
 import ninethCar from '../assets/images/9.png';
 import tenthCar from '../assets/images/10.png';
 
-const Productpage = () => {
-    const [ products, setProducts ] = useState([]);
+const Productpage = (props) => {
+    const { allProducts, setProducts, shoppingCart, setShoppingCart, isLoggedIn } = props;
+
 
     useEffect(() => {
         (async () => {
@@ -37,31 +39,62 @@ const Productpage = () => {
     }, []);
 
 
+    const handleAddToCartButton = async (event, products) => {
+        event.preventDefault();
+        let userId = localStorage.getItem('userId')
+        console.log('user', userId);
+        const myShoppingCart = await getMyShoppingCart()
+        console.log('PRODUCTSHOPPINGCART', myShoppingCart);
+        
+
+        // is returning alert, even when having userToken and credentials in localStorage
+        if(!isLoggedIn) {
+            alert('Please login to purchase an automobile');
+        } else {
+            handleAddToCartButton();
+        }
+
+
+
+        // either store logged in user
+
+        const newShoppingCart = [...shoppingCart, ...myShoppingCart, products]
+        setShoppingCart(newShoppingCart);
+
+        localStorage.setItem('cart', JSON.stringify(newShoppingCart));
+
+        // add logic to 
+    }
+
+    // const addProductToLoggedInCart = async () => {
+    //     const product = await getAllProducts();
+
+    //     // new cart state with products inside
+    //     const newCart = [ ...shoppingCart, product ];
+
+    //     setShoppingCart(newCart)
+    // }
+
     return(
         <div>
-<Card>
-    <CardContent>
             <h1>In the products Page</h1>
-    </CardContent>
-            </Card>
         <div className = "productsBox">
-        <h1>Take a look at our selection of cars!</h1>
- 
+        <h2>Take a look at our selection of cars!</h2>
 
         {
-            products.map(products => {
+            allProducts.map(products => {
                return <div className = "content" key = {products.id}>
-                   <Card>
                     <div className="column">
                       <div>
-                      <CardContent>
+
                     <h2>Product: {products.make} </h2> 
                     <h2>Model: {products.model} </h2>
                     <h2>Make: {products.make}</h2>
                     <h3>Year: {products.year}</h3>
                     <h3>Cost: ${products.cost}</h3>
-                    </CardContent>
                     </div>
+
+                    <button onClick={(event) => {handleAddToCartButton(event, products)}}>Add to cart</button>
                     
                     <div className="car-image">
                       <img src={products.car} width="200" height="200"/>
@@ -69,7 +102,7 @@ const Productpage = () => {
                     </div>
  
                     </div>
-                    </Card>
+
                 </div>
             })
         }

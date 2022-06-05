@@ -1,45 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { loginUser } from "../api";
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import '../style/Login.css';
 
 const Login = (props) => {
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
-  const {isLoggedIn, setIsLoggedIn} = props;
+  const [hasTriggeredError, setHasTriggeredError ] = useState(false);
+  const {isLoggedIn, setIsLoggedIn, username, setUsername, password, setPassword} = props;
+  let history = useHistory();
 
   const handleLogin = async (event) => {
     console.log("Logging in...");
-    // event.preventDefault();
-    // setUser("");
-    // setPassword("")
-    const registerInfo = {
-      user: user,
+    event.preventDefault();
+    setUsername("");
+    setPassword("");
+
+    const userObject = {
+      username: username,
       password: password,
     };
 
-    loginUser(registerInfo);
 
-    setUser("");
-    setPassword("");
+  const didLoginWork = await loginUser(userObject);
+  if(didLoginWork === false){
+    setHasTriggeredError(true);
+  } else{
+    setIsLoggedIn(didLoginWork);
+    history.push("/product")
+  }
+
   };
 
   const handleUserChange = (event) => {
-    setUser(event.target.value);
+    setUsername(event.target.value);
   };
+
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
   const handleLogOut = () => {
-    localStorage.removeItem("cars-R-Us");
+    localStorage.removeItem("userToken");
     setIsLoggedIn(false);
+
   };
 
   useEffect(() => {
-    setIsLoggedIn(!localStorage.getItem("cars-R-Us"));
+    setIsLoggedIn(!localStorage.getItem("userToken"));
   }, []);
 
+    // create a landing page for if login was  successful
 
     return (
       <>
@@ -48,7 +57,7 @@ const Login = (props) => {
           <label>Username</label>
           <input
             type="text"
-            value={user}
+            value={username}
             placeholder="Enter Username"
             onChange={handleUserChange}
           ></input>
@@ -60,9 +69,9 @@ const Login = (props) => {
             placeholder="Enter Password"
             onChange={handlePasswordChange}
           ></input>
-          <button type="submit" onClick={handleLogin}>
-            Login
-          </button>
+            <button type="submit" onClick={handleLogin}>
+              Login
+            </button>
           <button type="submit" onClick={handleLogOut}>
             Log Out
           </button>
@@ -71,40 +80,5 @@ const Login = (props) => {
     </>
   );
 };
-        // <form id="textinput">
-        //     <h1>Login to Account</h1>
-        //     <label htmlFor="username">Username: </label>
-        //     <input
-        //         type="text"
-        //         id="username"
-        //         name="username"
-        //         minLength="8"
-        //         value={username}
-        //         onChange={(event) => { setUsername(event.target.value) }}
-        //         required
-        //     >
-        //     </input>
-        //     <br />
 
-        //     <label htmlFor="pwd">Password: </label>
-        //     <input
-        //         type="password"
-        //         id="pwd"
-        //         name="pwd"
-        //         minLength="8"
-        //         value={password}
-        //         onChange={(event) => { setPassword(event.target.value) }}
-        //         required
-        //     ></input>
-        //     <br />
-        // <button
-        //     onClick={submit}>Login</button>
-        // <br />
-        // </form>
-
-    //   <Link to="/register">
-    //     <a>
-    //         Don't have an account? Register here.
-    //     </a>
-    // </Link>
 export default Login

@@ -78,4 +78,12 @@ button::after, button::before {
 .shrink-border:hover::after {
   opacity: 1;
   transform: scaleX(1) scaleY(1);
+<<<<<<< HEAD
 }
+=======
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> bf327c1334b56fd6224573f8ecd414731ac9f151
+>>>>>>> main

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  Route, Switch, NavLink } from 'react-router-dom';
+import {  Route, Switch, NavLink, Link } from 'react-router-dom';
 import '../style/App.css';
 import Navbar from './Navbar';
 import Searchbar from './Searchbar';
@@ -9,6 +9,7 @@ import MiscAPIpage from './MiscAPIpage';
 import Productpage from './Productpage';
 import Adminpage from './Adminpage';
 import Shoppingcart from './Shoppingcart';
+import Checkout from './Checkout';
 import { testAuthentication } from '../api';
 
 
@@ -17,13 +18,16 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedInUsername, setLoggedInUsername] = useState('');
   const[shoppingCart, setShoppingCart] = useState([]);
+  const [ products, setProducts ] = useState([])
+  const [username, setUsername] = useState("");
+  const [password, setPassword]= useState("");
+  const [user, setUser] = useState([]);
 
 async function isValidJWT() {
-  const token = localStorage.getItem('cars-R-Us_JWT');
+  const token = localStorage.getItem('userToken');
   if(!token) setIsLoggedIn(false);
+  
   else {
-      const isValid = await testAuthentication(token);
-      setLoggedInUsername(isValid.username);
       setIsLoggedIn(true);
   }
 }
@@ -32,38 +36,29 @@ useEffect(() => {
   isValidJWT();
 }, []);
 
-  // const [APIHealth, setAPIHealth] = useState('');
-
-  // useEffect(() => {
-    // follow this pattern inside your useEffect calls:
-    // first, create an async function that will wrap your axios service adapter
-    // invoke the adapter, await the response, and set the data
-    // const getAPIStatus = async () => {
-    //   const { healthy } = await getAPIHealth();
-    //   setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
-    // };
-
-    // second, after you've defined your getter above
-    // invoke it immediately after its declaration, inside the useEffect callback
-  //   getAPIStatus();
-  // }, []);
-
   return (
     <div className="app-container">
-        <>
+      <div id='header'>
+               <h1>Welcome to Cars-R-Us!</h1>
+        <p>If you are a user, please login and browse our wares!</p>
+        <p>If not, please use the Register form in our navigation bar 
+          to create your profile and get started!</p>
+
+
+        <div className='nav-bar'>
           <Navbar isLoggedIn={isLoggedIn} loggedInUsername={loggedInUsername} />
         <Switch>
           <Route path='/searchbar'>
-            <Searchbar  /> 
+            <Searchbar products={products} setProducts={setProducts} /> 
           </Route>
           <Route path='/login'>
-            <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} /> 
+            <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} username={username} setUsername={setUsername} password={password} setPassword={setPassword} /> 
           </Route>
           <Route path ='/register'>
-            <RegisterUser />
+            <RegisterUser username={username} setUsername={setUsername} password={password} setPassword={setPassword} />
           </Route>
           <Route path ='/product'>
-            <Productpage/>
+            <Productpage allProducts={products} setProducts={setProducts} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}></Productpage>
           </Route>
           <Route path='/shoppingcart'>
             <Shoppingcart shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}/>
@@ -75,10 +70,18 @@ useEffect(() => {
             <Adminpage /> 
           </Route>
         </Switch>
-        </>
-        {/* <p>API Status: {APIHealth}</p>  */}
-        
+        </div>
+
+        </div>
+
+        <Route path='/checkout'>
+        <Checkout user={user} setUser={setUser} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}/>
+        </Route>
+
+
+ 
     </div>
+
   );
 };
 

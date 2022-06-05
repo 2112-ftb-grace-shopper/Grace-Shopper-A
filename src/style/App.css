@@ -11,3 +11,21 @@
   color: var(--green);
   padding: 1rem;
 }
+
+#header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: stretch;
+ background-color: 	#060709;
+ /* padding: 8px; */
+ text-align: center;
+ font-family: 'Parisienne', cursive;
+ color: white;
+ font-size: xx-large;
+ top: 0;
+ /* margin-bottom: 15px; */
+ box-shadow: 5px 5px 5px  rgb(58, 50, 50);
+ /* position: fixed;
+ width: 100%; */
+}

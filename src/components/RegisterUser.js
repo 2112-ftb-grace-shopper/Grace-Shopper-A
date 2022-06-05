@@ -3,18 +3,19 @@ import { registerNewUser } from '../api';
 import { Link } from 'react-router-dom';
 import '../style/Registerpage.css';
 
-const RegisterUser = () => {
-    const [user, setUser] = useState("");
-    const [password, setPassword]= useState("");
+const RegisterUser = (props) => {
+    const { username, setUsername, password, setPassword } = props;
 
     const handleRegisterClick = async (event) => {
         event.preventDefault();
 
+
         console.log("Creating a new user...");
-        const registerInfo = {
-            user: user,
+        const userObject = {
+            username: username,
             password: password
         };
+        console.log('userObject', userObject)
 
         // these need to useState VVVV
         let firstPassword = document.querySelector('.password').value,
@@ -29,17 +30,19 @@ const RegisterUser = () => {
                 alert("Passwords did not match, please try again!");
                 return false
             }
-
-            const newUser = await registerNewUser(registerInfo);
+            
+            console.log('hitting here too!!!!!!!')
+            const newUser = await registerNewUser(userObject);
             alert(newUser.message)
-
-            setUser("");
+        
+            setUsername("");
             setPassword("");
+
             document.querySelector('.confirm_password').value='';
     };
 
     const handleUserChange = (event) => {
-        setUser(event.target.value);
+        setUsername(event.target.value);
     }
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
@@ -54,7 +57,7 @@ const RegisterUser = () => {
         </div>
 
         <form>
-            <input type="text" placeholder="User Name" value={user} onChange={handleUserChange}  />
+            <input type="text" placeholder="User Name" value={username} onChange={handleUserChange}  />
             <input type="password" className="password" placeholder="Password" id="password" value={password}
              onChange={handlePasswordChange}/>
 
