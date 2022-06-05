@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  Route, Switch, NavLink } from 'react-router-dom';
+import {  Route, Switch, NavLink, Link } from 'react-router-dom';
 import '../style/App.css';
 import Navbar from './Navbar';
 import Searchbar from './Searchbar';
@@ -65,7 +65,12 @@ useEffect(() => {
           </Route>
         </Switch>
         </div>
-      </div>
+        </div>
+
+        <h1>Welcome to Cars-R-Us!</h1>
+        <h3>If you are a user, please login and browse our wares!</h3>
+        <h3>If not, please use the Register form in our navigation bar 
+          to create your profile and get started!</h3>
     </div>
 
   );
