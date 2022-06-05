@@ -43,7 +43,7 @@ useEffect(() => {
           <Navbar isLoggedIn={isLoggedIn} loggedInUsername={loggedInUsername} />
         <Switch>
           <Route path='/searchbar'>
-            <Searchbar  /> 
+            <Searchbar products={products} setProducts={setProducts} /> 
           </Route>
           <Route path='/login'>
             <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} username={username} setUsername={setUsername} password={password} setPassword={setPassword} /> 
