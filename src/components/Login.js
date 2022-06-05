@@ -25,7 +25,6 @@ const Login = (props) => {
     setHasTriggeredError(true);
   } else{
     setIsLoggedIn(didLoginWork);
-    // let url = "http://localhost:3000/product";
     history.push("/product")
   }
 
