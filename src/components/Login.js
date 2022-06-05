@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { loginUser } from "../api";
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import '../style/Login.css';
 
 const Login = (props) => {
-  // const [user, setUser] = useState("");
-  // const [password, setPassword] = useState("");
   const [hasTriggeredError, setHasTriggeredError ] = useState(false);
   const {isLoggedIn, setIsLoggedIn, username, setUsername, password, setPassword} = props;
+  let history = useHistory();
 
   const handleLogin = async (event) => {
     console.log("Logging in...");
@@ -20,12 +19,15 @@ const Login = (props) => {
       password: password,
     };
 
+
   const didLoginWork = await loginUser(userObject);
   if(didLoginWork === false){
     setHasTriggeredError(true);
   } else{
     setIsLoggedIn(didLoginWork);
+    history.push("/product")
   }
+
   };
 
   const handleUserChange = (event) => {
@@ -39,6 +41,7 @@ const Login = (props) => {
   const handleLogOut = () => {
     localStorage.removeItem("userToken");
     setIsLoggedIn(false);
+
   };
 
   useEffect(() => {
@@ -66,9 +69,9 @@ const Login = (props) => {
             placeholder="Enter Password"
             onChange={handlePasswordChange}
           ></input>
-          <button type="submit" onClick={handleLogin}>
-            Login
-          </button>
+            <button type="submit" onClick={handleLogin}>
+              Login
+            </button>
           <button type="submit" onClick={handleLogOut}>
             Log Out
           </button>
