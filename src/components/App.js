@@ -9,6 +9,7 @@ import MiscAPIpage from './MiscAPIpage';
 import Productpage from './Productpage';
 import Adminpage from './Adminpage';
 import Shoppingcart from './Shoppingcart';
+import Checkout from './Checkout';
 import { testAuthentication } from '../api';
 
 
@@ -20,6 +21,7 @@ const App = () => {
   const [ products, setProducts ] = useState([])
   const [username, setUsername] = useState("");
   const [password, setPassword]= useState("");
+  const [user, setUser] = useState([]);
 
 async function isValidJWT() {
   const token = localStorage.getItem('userToken');
@@ -65,6 +67,12 @@ useEffect(() => {
           </Route>
         </Switch>
         </div>
+
+        </div>
+        <div>
+        <Route path='/checkout'>
+        <Checkout user={user} setUser={setUser} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}/>
+        </Route>
         </div>
 
         <h1>Welcome to Cars-R-Us!</h1>

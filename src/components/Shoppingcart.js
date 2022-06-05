@@ -9,7 +9,6 @@ import '../style/Shoppingcart.css';
 const Shoppingcart = (props) => {
     const {shoppingCart, setShoppingCart } = props;
     const {product, setProduct} = props;
-    const [ productId, setProductId] = useState(0);
 
 
     useEffect(() => {
@@ -24,6 +23,19 @@ const Shoppingcart = (props) => {
             setShoppingCart(newCart);
         })();
     },[]);
+
+
+    const taxRate = (num) => {
+        if(!num) {
+            return null;
+        } else {
+            let tax = num * (8/100);
+
+        return tax
+    }
+    }
+
+    console.log('tax', taxRate(10));
 
 
     // const addProductToLoggedInCart = async () => {
@@ -60,10 +72,17 @@ const Shoppingcart = (props) => {
                         return <div className = 'content' key = {`${index}, ${item.id}`}>
                             <h2>{item.make} {item.model}</h2> 
                             <h2>Price: ${item.cost} USD</h2>
-                            <button className = 'checkout'>Proceed to checkout</button>
                             </div>
+                            
                     })
+                    
                 }
+                <button>
+                    <Link to ='/checkout'>
+                    Proceed to checkout
+            </Link>
+            </button>
+
            </div>
            } 
         </div>
