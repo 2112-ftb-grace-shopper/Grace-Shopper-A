@@ -9,40 +9,31 @@ const Navbar = (props) => {
 
         
     return (
-        <div className = 'frontpagediv'>
-            <p> Cars R Us Scaffolding </p>
-            <div>
-                <ul>
-                    <li>
-                        
-                         <Link to ='/'>
-                             Nav page  -You should always see here.
-                             </Link>
-                    </li>
-                    <li>
-                            <Link to='/login'> Login Page </Link> 
-                    </li>
-                    <li>
-                            <Link to='/register'>Register page</Link>
-                    </li>
-                    <li>
-                            <Link to ='/product'> Product Page </Link>    
-                    </li>
-                    <li>
-                            <Link to= '/searchbar'> Search Bar </Link>
-                    </li>
-                    <li>
-                            <Link to= '/shoppingcart'> Shopping Cart Page </Link>
-                    </li>
-                    <li>
-                            <Link to= '/miscAPIpage'> Misc API display playground</Link>
-                    </li>
-                    <li>
-                            <Link to= '/adminpage'> Admin Page</Link>
-                    </li>
-                </ul>
-            </div>
-        </div>
+<div className="frontpagediv">
+      <p> Cars R Us</p>
+      <div>
+        <span class="material-bubble">
+          <button>
+            <Link to="/login"> Login Page </Link>
+          </button>
+          <button>
+            <Link to="/register">Register page</Link>
+          </button>
+          <button>
+            <Link to="/product"> Product Page </Link>
+          </button>
+          <button>
+            <Link to="/searchbar"> Search Bar </Link>
+          </button>
+          <button>
+            <Link to="/shoppingcart"> Shopping Cart Page </Link>
+          </button>
+          <button>
+            <Link to="/adminpage"> Admin Page</Link>
+          </button>
+        </span>
+      </div>
+    </div>
     )
 }
 
