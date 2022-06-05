@@ -1,5 +1,4 @@
 
-   
 import React, {useEffect, useInsertionEffect, useState } from "react";
 import { getAllProducts, getMyShoppingCart, postProductToShoppingCart, postProducts } from "../api";
 import { Link } from "react-router-dom";
@@ -59,8 +58,9 @@ const Shoppingcart = (props) => {
                        {
                     shoppingCart.map((item, index) => {
                         return <div className = 'content' key = {`${index}, ${item.id}`}>
-                            <h2>Shopping Cart: {item.shopperId}</h2> 
-                            <h2>Order total: {item.orderTotal}</h2>
+                            <h2>{item.make} {item.model}</h2> 
+                            <h2>Price: ${item.cost} USD</h2>
+                            <button className = 'checkout'>Proceed to checkout</button>
                             </div>
                     })
                 }
