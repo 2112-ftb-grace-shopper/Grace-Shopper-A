@@ -1,7 +1,11 @@
 // This is the Web Server
+require('dotenv').config()
+
 const express = require('express');
 const server = express();
 const PORT = process.env.PORT || 4000;
+console.log(PORT)
+console.log(process.env)
 
 
 // enable cross-origin resource sharing to proxy api requests

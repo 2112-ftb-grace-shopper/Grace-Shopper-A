@@ -50,7 +50,6 @@ useEffect(() => {
 
   return (
     <div className="app-container">
-      <h1>HELLO WORLD</h1>
         <>
           <Navbar isLoggedIn={isLoggedIn} loggedInUsername={loggedInUsername} />
         <Switch>
