@@ -10,7 +10,7 @@ const Navbar = (props) => {
         
     return (
 <div className="frontpagediv">
-      <p> Cars R Us</p>
+      {/* <p> Cars R Us</p> */}
       <div>
         <span class="material-bubble">
           <button>

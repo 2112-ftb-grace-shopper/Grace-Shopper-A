@@ -9,7 +9,6 @@ import '../style/Shoppingcart.css';
 const Shoppingcart = (props) => {
     const {shoppingCart, setShoppingCart } = props;
     const {product, setProduct} = props;
-    const [ productId, setProductId] = useState(0);
 
 
     useEffect(() => {
@@ -24,6 +23,21 @@ const Shoppingcart = (props) => {
             setShoppingCart(newCart);
         })();
     },[]);
+
+
+    const username = localStorage.getItem('Username');
+
+    const taxRate = (num) => {
+        if(!num) {
+            return null;
+        } else {
+            let tax = num * (8/100);
+
+        return tax
+    }
+    }
+
+    console.log('tax', taxRate(10));
 
 
     // const addProductToLoggedInCart = async () => {
@@ -54,16 +68,31 @@ const Shoppingcart = (props) => {
            </div>
            :
            <div>
-               <h1>Here are your shopping cart items!</h1>
+               <h1>Hello {username} please review the items in your cart</h1>
                        {
                     shoppingCart.map((item, index) => {
                         return <div className = 'content' key = {`${index}, ${item.id}`}>
                             <h2>{item.make} {item.model}</h2> 
                             <h2>Price: ${item.cost} USD</h2>
-                            <button className = 'checkout'>Proceed to checkout</button>
                             </div>
+                            
                     })
+                    
                 }
+            <span>
+                <button>
+                    <Link to ='/checkout'>
+                    Proceed to checkout
+            </Link>
+            </button>
+            <p>Or </p>
+            <button>
+            <Link to ='/product'>
+                Continue Shopping
+            </Link>
+           </button>
+            </span>
+
            </div>
            } 
         </div>

@@ -9,6 +9,7 @@ import MiscAPIpage from './MiscAPIpage';
 import Productpage from './Productpage';
 import Adminpage from './Adminpage';
 import Shoppingcart from './Shoppingcart';
+import Checkout from './Checkout';
 import { testAuthentication } from '../api';
 
 
@@ -20,6 +21,7 @@ const App = () => {
   const [ products, setProducts ] = useState([])
   const [username, setUsername] = useState("");
   const [password, setPassword]= useState("");
+  const [user, setUser] = useState([]);
 
 async function isValidJWT() {
   const token = localStorage.getItem('userToken');
@@ -37,7 +39,11 @@ useEffect(() => {
   return (
     <div className="app-container">
       <div id='header'>
-      <h1>Welcome to Cars-R-Us!</h1>
+               <h1>Welcome to Cars-R-Us!</h1>
+        <p>If you are a user, please login and browse our wares!</p>
+        <p>If not, please use the Register form in our navigation bar 
+          to create your profile and get started!</p>
+
 
         <div className='nav-bar'>
           <Navbar isLoggedIn={isLoggedIn} loggedInUsername={loggedInUsername} />
@@ -65,12 +71,15 @@ useEffect(() => {
           </Route>
         </Switch>
         </div>
+
         </div>
 
-        <h1>Welcome to Cars-R-Us!</h1>
-        <h3>If you are a user, please login and browse our wares!</h3>
-        <h3>If not, please use the Register form in our navigation bar 
-          to create your profile and get started!</h3>
+        <Route path='/checkout'>
+        <Checkout user={user} setUser={setUser} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}/>
+        </Route>
+
+
+ 
     </div>
 
   );
