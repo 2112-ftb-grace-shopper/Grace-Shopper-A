@@ -55,7 +55,7 @@ shoppingCartRouter.patch('/:shoppingCartId', requireUser, async (req, res, next)
                 name: 'AdminError',
                 message: 'User is not owner of this Admin'
             })
-        }
+    }
         
         const updateCart = await updateCart({ id: productId, make, model,
         year, color })
@@ -65,6 +65,7 @@ shoppingCartRouter.patch('/:shoppingCartId', requireUser, async (req, res, next)
         return next(error)
     }
 });
+
 
 shoppingCartRouter.delete('/:shoppingCartId', requireUser, async (req, res, next) => {
     try {

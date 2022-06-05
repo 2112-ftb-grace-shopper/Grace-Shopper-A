@@ -19,7 +19,8 @@ import tenthCar from '../assets/images/10.png';
 import { user } from "pg/lib/defaults";
 
 const Productpage = (props) => {
-    const { products, setProducts, shoppingCart, setShoppingCart } = props;
+    const { allProducts, setProducts, shoppingCart, setShoppingCart } = props;
+
 
     useEffect(() => {
         (async () => {
@@ -38,31 +39,43 @@ const Productpage = (props) => {
         })();
     }, []);
 
-    const handleAddToCartButton = async (event) => {
+
+    const handleAddToCartButton = async (event, products) => {
         event.preventDefault();
         let userId = localStorage.getItem('userId')
         console.log('user', userId);
-        const shoppingCart = await getMyShoppingCart()
-        console.log('PRODUCTSHOPPINGCART', shoppingCart);
+        const myShoppingCart = await getMyShoppingCart()
+        console.log('PRODUCTSHOPPINGCART', myShoppingCart);
 
-        shoppingCart.push(products)
-        localStorage.setItem('cart', JSON.stringify(shoppingCart));
+
 
         // either store logged in user
 
-        const newShoppingCart = [...shoppingCart, products]
+        const newShoppingCart = [...shoppingCart, ...myShoppingCart, products]
         setShoppingCart(newShoppingCart);
+
+        localStorage.setItem('cart', JSON.stringify(newShoppingCart));
+
+        // add logic to 
     }
+
+    // const addProductToLoggedInCart = async () => {
+    //     const product = await getAllProducts();
+
+    //     // new cart state with products inside
+    //     const newCart = [ ...shoppingCart, product ];
+
+    //     setShoppingCart(newCart)
+    // }
 
     return(
         <div>
             <h1>In the products Page</h1>
         <div className = "productsBox">
         <h1>Take a look at our selection of cars!</h1>
- 
 
         {
-            products.map(products => {
+            allProducts.map(products => {
                return <div className = "content" key = {products.id}>
                     <div className="column">
                       <div>
@@ -72,9 +85,9 @@ const Productpage = (props) => {
                     <h2>Make: {products.make}</h2>
                     <h3>Year: {products.year}</h3>
                     <h3>Cost: ${products.cost}</h3>
-                    <button onClick={(event) => {handleAddToCartButton(event)}}>Add to cart</button>
-
                     </div>
+
+                    <button onClick={(event) => {handleAddToCartButton(event, products)}}>Add to cart</button>
                     
                     <div className="car-image">
                       <img src={products.car} width="200" height="200"/>
