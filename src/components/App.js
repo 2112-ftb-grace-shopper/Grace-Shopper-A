@@ -66,6 +66,11 @@ useEffect(() => {
         </Switch>
         </div>
         </div>
+
+        <h1>Welcome to Cars-R-Us!</h1>
+        <h3>If you are a user, please login and browse our wares!</h3>
+        <h3>If not, please use the Register form in our navigation bar 
+          to create your profile and get started!</h3>
     </div>
 
   );
