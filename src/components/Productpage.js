@@ -47,6 +47,8 @@ const Productpage = (props) => {
         const myShoppingCart = await getMyShoppingCart()
         console.log('PRODUCTSHOPPINGCART', myShoppingCart);
         
+
+        // is returning alert, even when having userToken and credentials in localStorage
         if(!isLoggedIn) {
             alert('Please login to purchase an automobile');
         } else {
