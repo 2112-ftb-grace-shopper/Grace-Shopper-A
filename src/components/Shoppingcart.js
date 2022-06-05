@@ -25,6 +25,8 @@ const Shoppingcart = (props) => {
     },[]);
 
 
+    const username = localStorage.getItem('Username');
+
     const taxRate = (num) => {
         if(!num) {
             return null;
@@ -66,7 +68,7 @@ const Shoppingcart = (props) => {
            </div>
            :
            <div>
-               <h1>Here are your shopping cart items!</h1>
+               <h1>Hello {username} please review the items in your cart</h1>
                        {
                     shoppingCart.map((item, index) => {
                         return <div className = 'content' key = {`${index}, ${item.id}`}>
@@ -77,11 +79,19 @@ const Shoppingcart = (props) => {
                     })
                     
                 }
+            <span>
                 <button>
                     <Link to ='/checkout'>
                     Proceed to checkout
             </Link>
             </button>
+            <p>Or </p>
+            <button>
+            <Link to ='/product'>
+                Continue Shopping
+            </Link>
+           </button>
+            </span>
 
            </div>
            } 
