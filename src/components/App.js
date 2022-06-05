@@ -52,7 +52,7 @@ useEffect(() => {
             <RegisterUser username={username} setUsername={setUsername} password={password} setPassword={setPassword} />
           </Route>
           <Route path ='/product'>
-            <Productpage products={products} setProducts={setProducts}></Productpage>
+            <Productpage allProducts={products} setProducts={setProducts} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}></Productpage>
           </Route>
           <Route path='/shoppingcart'>
             <Shoppingcart shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}/>

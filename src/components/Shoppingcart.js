@@ -15,7 +15,12 @@ const Shoppingcart = (props) => {
 
     useEffect(() => {
         (async () => {
-            const newCart = await getMyShoppingCart();
+            let newCart = await getMyShoppingCart();
+
+            // if no cart return in backend, new cart as an array in localStorage
+            if(!newCart.length){
+                newCart = JSON.parse(localStorage.getItem('cart'));
+            }
             console.log(shoppingCart)
             setShoppingCart(newCart);
         })();
@@ -52,10 +57,10 @@ const Shoppingcart = (props) => {
            <div>
                <h1>Here are your shopping cart items!</h1>
                        {
-                    shoppingCart.map(shoppingCart => {
-                        return <div className = 'content' key = {shoppingCart.id}>
-                            <h2>Shopping Cart: {shoppingCart.shopperId}</h2> 
-                            <h2>Order total: {shoppingCart.orderTotal}</h2>
+                    shoppingCart.map((item, index) => {
+                        return <div className = 'content' key = {`${index}, ${item.id}`}>
+                            <h2>Shopping Cart: {item.shopperId}</h2> 
+                            <h2>Order total: {item.orderTotal}</h2>
                             </div>
                     })
                 }
