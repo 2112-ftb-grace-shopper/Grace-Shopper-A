@@ -5,9 +5,16 @@ import "../style/Navbar.css";
 const Navbar = (props) => {
   const { isLoggedIn, setIsLoggedIn } = props;
 
+<<<<<<< HEAD
   return (
     <div className="frontpagediv">
       <p> Cars R Us</p>
+=======
+        
+    return (
+<div className="frontpagediv">
+      {/* <p> Cars R Us</p> */}
+>>>>>>> bf327c1334b56fd6224573f8ecd414731ac9f151
       <div>
         <span class="material-bubble">
           <button>
@@ -31,7 +38,12 @@ const Navbar = (props) => {
         </span>
       </div>
     </div>
+<<<<<<< HEAD
   );
 };
+=======
+    )
+}
+>>>>>>> bf327c1334b56fd6224573f8ecd414731ac9f151
 
 export default Navbar;

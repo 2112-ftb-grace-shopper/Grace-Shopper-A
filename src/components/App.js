@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  Route, Switch, NavLink } from 'react-router-dom';
+import {  Route, Switch, NavLink, Link } from 'react-router-dom';
 import '../style/App.css';
 import Navbar from './Navbar';
 import Searchbar from './Searchbar';
@@ -9,6 +9,7 @@ import MiscAPIpage from './MiscAPIpage';
 import Productpage from './Productpage';
 import Adminpage from './Adminpage';
 import Shoppingcart from './Shoppingcart';
+import Checkout from './Checkout';
 import { testAuthentication } from '../api';
 
 
@@ -20,6 +21,7 @@ const App = () => {
   const [ products, setProducts ] = useState([])
   const [username, setUsername] = useState("");
   const [password, setPassword]= useState("");
+  const [user, setUser] = useState([]);
 
 async function isValidJWT() {
   const token = localStorage.getItem('userToken');
@@ -37,13 +39,17 @@ useEffect(() => {
   return (
     <div className="app-container">
       <div id='header'>
-      <h1>Welcome to Cars-R-Us!</h1>
+               <h1>Welcome to Cars-R-Us!</h1>
+        <p>If you are a user, please login and browse our wares!</p>
+        <p>If not, please use the Register form in our navigation bar 
+          to create your profile and get started!</p>
+
 
         <div className='nav-bar'>
           <Navbar isLoggedIn={isLoggedIn} loggedInUsername={loggedInUsername} />
         <Switch>
           <Route path='/searchbar'>
-            <Searchbar  /> 
+            <Searchbar products={products} setProducts={setProducts} /> 
           </Route>
           <Route path='/login'>
             <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} username={username} setUsername={setUsername} password={password} setPassword={setPassword} /> 
@@ -65,7 +71,15 @@ useEffect(() => {
           </Route>
         </Switch>
         </div>
+
         </div>
+
+        <Route path='/checkout'>
+        <Checkout user={user} setUser={setUser} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}/>
+        </Route>
+
+
+ 
     </div>
 
   );

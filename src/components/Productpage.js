@@ -18,7 +18,7 @@ import ninethCar from '../assets/images/9.png';
 import tenthCar from '../assets/images/10.png';
 
 const Productpage = (props) => {
-    const { allProducts, setProducts, shoppingCart, setShoppingCart } = props;
+    const { allProducts, setProducts, shoppingCart, setShoppingCart, isLoggedIn } = props;
 
 
     useEffect(() => {
@@ -45,6 +45,14 @@ const Productpage = (props) => {
         console.log('user', userId);
         const myShoppingCart = await getMyShoppingCart()
         console.log('PRODUCTSHOPPINGCART', myShoppingCart);
+        
+
+        // is returning alert, even when having userToken and credentials in localStorage
+        if(!isLoggedIn) {
+            alert('Please login to purchase an automobile');
+        } else {
+            handleAddToCartButton();
+        }
 
 
 
@@ -71,7 +79,7 @@ const Productpage = (props) => {
         <div>
             <h1>In the products Page</h1>
         <div className = "productsBox">
-        <h1>Take a look at our selection of cars!</h1>
+        <h2>Take a look at our selection of cars!</h2>
 
         {
             allProducts.map(products => {
