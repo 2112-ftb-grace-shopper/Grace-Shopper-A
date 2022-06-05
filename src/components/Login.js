@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { loginUser } from "../api";
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import '../style/Login.css';
 
 const Login = (props) => {
   const [hasTriggeredError, setHasTriggeredError ] = useState(false);
   const {isLoggedIn, setIsLoggedIn, username, setUsername, password, setPassword} = props;
+  let history = useHistory();
 
   const handleLogin = async (event) => {
     console.log("Logging in...");
@@ -24,6 +25,8 @@ const Login = (props) => {
     setHasTriggeredError(true);
   } else{
     setIsLoggedIn(didLoginWork);
+    // let url = "http://localhost:3000/product";
+    history.push("/product")
   }
 
   };
@@ -67,11 +70,9 @@ const Login = (props) => {
             placeholder="Enter Password"
             onChange={handlePasswordChange}
           ></input>
-          <Link to='/product'>
             <button type="submit" onClick={handleLogin}>
               Login
             </button>
-          </Link>
           <button type="submit" onClick={handleLogOut}>
             Log Out
           </button>
