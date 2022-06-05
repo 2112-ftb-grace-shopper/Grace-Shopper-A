@@ -16,7 +16,6 @@ import seventhCar from '../assets/images/7.png';
 import eighthCar from '../assets/images/8.jpeg';
 import ninethCar from '../assets/images/9.png';
 import tenthCar from '../assets/images/10.png';
-import { user } from "pg/lib/defaults";
 
 const Productpage = (props) => {
     const { allProducts, setProducts, shoppingCart, setShoppingCart } = props;
