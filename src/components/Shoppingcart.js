@@ -10,7 +10,6 @@ const Shoppingcart = (props) => {
     const {shoppingCart, setShoppingCart } = props;
     const {product, setProduct} = props;
 
-
     useEffect(() => {
         (async () => {
             let newCart = await getMyShoppingCart();
