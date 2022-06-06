@@ -27,18 +27,6 @@ const Shoppingcart = (props) => {
 
     const username = localStorage.getItem('Username');
 
-    const taxRate = (num) => {
-        if(!num) {
-            return null;
-        } else {
-            let tax = num * (8/100);
-
-        return tax
-    }
-    }
-
-    console.log('tax', taxRate(10));
-
 
     // const addProductToLoggedInCart = async () => {
     //     const product = await getAllProducts();
@@ -68,7 +56,7 @@ const Shoppingcart = (props) => {
            </div>
            :
            <div>
-               <h1>Hello {username} please review the items in your cart</h1>
+               <h1>Hello, {username} please review the items in your cart</h1>
                        {
                     shoppingCart.map((item, index) => {
                         return <div className = 'content' key = {`${index}, ${item.id}`}>
