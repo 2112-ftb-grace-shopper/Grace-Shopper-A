@@ -7,7 +7,7 @@
     "postinstall": "npm run client:build",
     "client:dev": "react-scripts start",
     "client:build": "react-scripts build",
-    "server:dev": "nodemon index.js",
+    "server:dev": "PORT:4001 nodemon index.js",
     "db:build": "node ./db/init_db",
     "start:dev": "concurrently \"npm run client:build\" \"npm run client:dev\" \"npm run server:dev\"",
     "start": "node index.js",
