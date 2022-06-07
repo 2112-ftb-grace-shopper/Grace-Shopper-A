@@ -54,7 +54,7 @@ const Login = (props) => {
       <>
       <div id="login" className="loginStyle">
         <form>
-          <label>Username</label>
+          <label>Username: </label>
           <input
             type="text"
             value={username}
@@ -62,7 +62,7 @@ const Login = (props) => {
             onChange={handleUserChange}
           ></input>
 
-          <label>Password</label>
+          <label>Password: </label>
           <input
             type="password"
             value={password}

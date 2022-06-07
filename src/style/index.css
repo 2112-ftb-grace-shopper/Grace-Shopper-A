@@ -19,15 +19,3 @@ body {
   width: 100vw;
 }
 
-button a:hover {
-  text-decoration: none;
-}
-
-button a {
-  text-decoration: none;
-}
-
-button a:visited {
-  text-decoration: none;
-  color: black
-}

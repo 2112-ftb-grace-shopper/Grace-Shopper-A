@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { registerNewUser } from '../api';
 import { Link } from 'react-router-dom';
 import '../style/Registerpage.css';
@@ -51,22 +51,27 @@ const RegisterUser = (props) => {
 
 
     return (
-        <>
+        <div class="register">
         <div>
             <h1>Register New User</h1>
         </div>
 
-        <form>
+        <form className='form'>
+            <label>
             <input type="text" placeholder="User Name" value={username} onChange={handleUserChange}  />
+            </label>
+            <label>
             <input type="password" className="password" placeholder="Password" id="password" value={password}
              onChange={handlePasswordChange}/>
+            </label>
+             <label>
+            <input type="password" className="confirm_password" placeholder="Re-Enter Password" id="confirm-password"/>   
+             </label>   
 
-            <input type="password" className="confirm_password" placeholder="Re-Enter Password" id="confirm-password"
-            />
              
-            <button onClick={handleRegisterClick}>Register!</button>  
+            <button onClick={handleRegisterClick}>Register</button>  
         </form>
-      </>    
+      </div>    
     );
         // <Link to ='/Navbar'>Back</Link>
 
