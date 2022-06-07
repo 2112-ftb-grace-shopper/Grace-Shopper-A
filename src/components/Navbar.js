@@ -12,6 +12,9 @@ const Navbar = (props) => {
       <div>
         <span class="material-bubble">
           <button>
+            <Link to="/"> Home </Link>
+          </button>
+          <button>
             <Link to="/login"> Login Page </Link>
           </button>
           <button>
@@ -20,6 +23,7 @@ const Navbar = (props) => {
           <button>
             <Link to="/product"> Product Page </Link>
           </button>
+<<<<<<< HEAD
           {/* <button>
             <Link to="/searchbar"> Search Bar </Link>
           </button> */}
@@ -29,6 +33,11 @@ const Navbar = (props) => {
           {/* <button>
             <Link to="/adminpage"> Admin Page</Link>
           </button> */}
+=======
+          <button>
+            <Link to="/shoppingcart"> Shopping Cart Page </Link>
+          </button>
+>>>>>>> origin/main
         </span>
       </div>
     </div>

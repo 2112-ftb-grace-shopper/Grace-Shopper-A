@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {  Route, Switch, NavLink, Link } from 'react-router-dom';
 import '../style/App.css';
 import Navbar from './Navbar';
-import Searchbar from './Searchbar';
 import Login from './Login';
 import RegisterUser from './RegisterUser';
 import MiscAPIpage from './MiscAPIpage';
@@ -10,6 +9,7 @@ import Productpage from './Productpage';
 import Adminpage from './Adminpage';
 import Shoppingcart from './Shoppingcart';
 import Checkout from './Checkout';
+import Home from './Home';
 import { testAuthentication } from '../api';
 
 
@@ -48,7 +48,9 @@ useEffect(() => {
         <div className='nav-bar'>
           <Navbar isLoggedIn={isLoggedIn} loggedInUsername={loggedInUsername} />
         <Switch>
-
+          <Route path='/' exact={true}>
+            <Home />
+          </Route>
           <Route path='/login'>
             <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} username={username} setUsername={setUsername} password={password} setPassword={setPassword} /> 
           </Route>
