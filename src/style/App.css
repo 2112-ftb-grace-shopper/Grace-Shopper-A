@@ -11,7 +11,7 @@ html, body {
 body > * {
   flex-shrink: 0;
   background-color: #414a4c;
-  background-image: url('../../public/fecar.avif');
+  background-image: url('../assets/images/fecar.avif');
   background-size: contain;
   background-repeat: no-repeat;
 }
