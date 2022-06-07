@@ -1,11 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import '../style/Navbar.css';
-
-
+import React from "react";
+import { Link } from "react-router-dom";
+import "../style/Navbar.css";
 
 const Navbar = (props) => {
-        const {isLoggedIn, setIsLoggedIn} = props;
+  const { isLoggedIn, setIsLoggedIn } = props;
 
         
     return (
@@ -37,4 +35,4 @@ const Navbar = (props) => {
     )
 }
 
-export default Navbar
+export default Navbar;

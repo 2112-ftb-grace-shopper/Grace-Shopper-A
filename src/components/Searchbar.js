@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 const Searchbar = () => {
 
     return (
-        <div>
+        <div className='searchbar'>
 
-        <span className='searchbar'>
+        <span >
             <select>
                 <option value='Make'>Make</option>
             </select>

@@ -39,7 +39,12 @@ useEffect(() => {
   return (
     <div className="app-container">
       <div id='header'>
-               <h1>Welcome to Cars-R-Us!</h1>
+               <span>
+                 <h1 class="techone">Welcome to</h1>
+                 </span>
+                 <span>
+                   <h1 class="techtwo"> Cars-R-Us!</h1>
+                 </span>
         <p>If you are a user, please login and browse our wares!</p>
         <p>If not, please use the Register form in our navigation bar 
           to create your profile and get started!</p>

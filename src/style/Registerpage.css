@@ -1,0 +1,14 @@
+.register {
+    display: block;
+  flex-direction: column;
+  text-align: center;
+  flex-wrap: wrap;
+  max-height: 100%;
+  padding: 6px;
+}
+
+input {
+    margin: 5px;
+    background-color: #f8f8ff;
+    border-radius: 5px;
+}
