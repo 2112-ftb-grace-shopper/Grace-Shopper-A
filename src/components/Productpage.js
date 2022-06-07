@@ -77,7 +77,7 @@ const Productpage = (props) => {
 
     return(
         <div>
-            <h1>In the products Page</h1>
+            <h1>Welcome to our selection of quality vehicles</h1>
         <div className = "productsBox">
         <h2>Take a look at our selection of cars!</h2>
 
@@ -94,14 +94,14 @@ const Productpage = (props) => {
                     <h3>Cost: ${products.cost}</h3>
                     </div>
 
-                    <button onClick={(event) => {handleAddToCartButton(event, products)}}>Add to cart</button>
                     
                     <div className="car-image">
                       <img src={products.car} width="200" height="200"/>
-                      
+
                     </div>
  
                     </div>
+                    <button onClick={(event) => {handleAddToCartButton(event, products)}}>Add to cart</button>
 
                 </div>
             })
