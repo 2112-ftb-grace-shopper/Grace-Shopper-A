@@ -48,7 +48,7 @@ const Shoppingcart = (props) => {
                        {
                     shoppingCart.map((item, index) => {
                         return <div className = 'content' key = {`${index}, ${item.id}`}>
-                            <h2>{item.make} {item.model}</h2> 
+                            <h2>{item.year} {item.make} {item.model}</h2> 
                             <h2>Price: ${item.cost} USD</h2>
                             </div>
                             

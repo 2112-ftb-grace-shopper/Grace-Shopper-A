@@ -39,6 +39,7 @@ const Productpage = (props) => {
     }, []);
 
 
+
     const handleAddToCartButton = async (event, products) => {
         event.preventDefault();
         let userId = localStorage.getItem('userId')
@@ -87,10 +88,11 @@ const Productpage = (props) => {
                     <div className="column">
                       <div>
 
-                    <h2>Product: {products.make} </h2> 
+                    <h2>Make: {products.make} </h2> 
+                    <h2>Year: {products.year}</h2>
                     <h2>Model: {products.model} </h2>
-                    <h2>Make: {products.make}</h2>
-                    <h3>Year: {products.year}</h3>
+                    <h2>City Mpg: {products.min_city_mpg}</h2>
+                    <h2>Hwy Mpg: {products.min_hwy_mpg}</h2>
                     <h3>Cost: ${products.cost}</h3>
                     </div>
 

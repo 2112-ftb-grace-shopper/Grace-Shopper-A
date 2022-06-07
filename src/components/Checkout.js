@@ -16,6 +16,7 @@ const Checkout = (props) => {
 
     const [creditCard, setCreditCard] = useState('')
     const [cvv, setCvv] = useState('')
+    const [expirationDate, setExpirationDate] = useState('');
 
     const {user, setUser, username, setUsername, password, setPassword, shoppingCart, setShoppingCart } = props;
 
@@ -150,10 +151,17 @@ const Checkout = (props) => {
             setCvv(event.target.value);
         }
 
+        const handleExpirationDateChange = (event) => {
+            event.preventDefault();
+            setExpirationDate(event.target.value);
+        }
+
+
         const handleCreditCardSubmit =(event) => {
             event.preventDefault()
             setCreditCard('');
             setCvv('');
+            setExpirationDate('');
 
             if(!creditCard){
                 alert('Please enter a valid credit card');
@@ -162,37 +170,48 @@ const Checkout = (props) => {
             if(!cvv){
                 alert('Please enter a cvv value');
             }
+
+            if(!expirationDate){
+                alert('Please enter an expiration date')
+            }
             alert('Congratulations! Your car is on its way!')
         }
 
+    // const taxRate = (shoppingCart) => {
+    //    // return null if no cart exists
+    //     if(!shoppingCart){
+    //         return null
+    //     }
 
-    const taxRate = (shoppingCart) => {
-       // return null if no cart exists
-        if(!shoppingCart){
-            return null
+    //      // tax rate of 8%
+    //     let tax = 8/100
+    //     // loop through the shoppingCart array
+    //     for(let i = 0; i < shoppingCart.length; i++ ){
+    //         // grab each cart
+    //         let currItemInCart = shoppingCart[i];
+    //         console.log(currItemInCart)
+    //         let currItemCost = currItemInCart.cost
+
+    //         let itemTax = currItemCost * tax;
+    //         let roundedTax = itemTax.toFixed(2);
+
+    //         if(itemTax){
+    //          cartTotal.push(roundedTax);
+    //         }
+    //     }
+    //     return cartTotal;
+    // }
+
+    // console.log('tax', taxRate(shoppingCart));
+
+        const taxRate = (price) => {
+            let tax = 8/100
+            let finalTax = price * tax.toFixed(2)
+
+            return finalTax
+            
         }
-        let cartTotal = [];
 
-         // tax rate of 8%
-        let tax = 8/100
-        // loop through the shoppingCart array
-        for(let i = 0; i < shoppingCart.length; i++ ){
-            // grab each cart
-            let currItemInCart = shoppingCart[i];
-            console.log(currItemInCart)
-            let currItemCost = currItemInCart.cost
-
-            let itemTax = currItemCost * tax;
-            let roundedTax = itemTax.toFixed(2);
-
-            if(itemTax){
-             cartTotal.push(roundedTax);
-            }
-        }
-        return cartTotal;
-    }
-
-    console.log('tax', taxRate(shoppingCart));
 
     // compare it to the information that is in our database
     // if the information matches
@@ -256,9 +275,11 @@ const Checkout = (props) => {
 
 
             </>
-            <input type='text' placeholder="Credit Card Number" value={creditCard} onChange={handleCreditCardChange}></input>
+            <input type='text'autocomplete="off" placeholder="Card Number" value={creditCard} onChange={handleCreditCardChange}></input>
 
-            <input type='text' placeholder="Cvv" value={cvv} onChange={handleCvvChange}></input>
+            <input type='text' autocomplete="off" placeholder="Expiration Date" value={expirationDate} onChange={handleExpirationDateChange}></input>
+
+            <input type='text' placeholder="CVC" value={cvv} onChange={handleCvvChange}></input>
 
             <button type="submit" onClick={handleCreditCardSubmit}>
              confirm payment
@@ -270,6 +291,8 @@ const Checkout = (props) => {
                     return <div className = 'content' key = {`${index}, ${item.id}`}>
                         <h2>{item.make} {item.model}</h2> 
                         <h2>Price: ${item.cost} USD</h2>
+                        <h2>Item Tax: ${Math.round(taxRate(item.cost))} USD</h2>
+                        <h2>Total: ${Math.round(taxRate(item.cost))} + {item.cost} = {Math.round(taxRate(item.cost)) + item.cost} </h2>
                         {/* {cartTotal += item.cost} */}
                         {/* {console.log('cartTotal', cartTotal)} */}
                         </div> 
