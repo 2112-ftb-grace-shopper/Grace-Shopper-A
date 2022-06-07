@@ -39,6 +39,7 @@ const Productpage = (props) => {
     }, []);
 
 
+
     const handleAddToCartButton = async (event, products) => {
         event.preventDefault();
         let userId = localStorage.getItem('userId')
@@ -49,7 +50,7 @@ const Productpage = (props) => {
 
         // is returning alert, even when having userToken and credentials in localStorage
         if(!isLoggedIn) {
-            alert('Please login to purchase an automobile');
+            alert('Woo! A car has been added to your cart!');
         } else {
             handleAddToCartButton();
         }
@@ -77,7 +78,7 @@ const Productpage = (props) => {
 
     return(
         <div>
-            <h1>In the products Page</h1>
+            <h1>Welcome to our selection of quality vehicles</h1>
         <div className = "productsBox">
         <h2>Take a look at our selection of cars!</h2>
 
@@ -87,21 +88,22 @@ const Productpage = (props) => {
                     <div className="column">
                       <div>
 
-                    <h2>Product: {products.make} </h2> 
+                    <h2>Make: {products.make} </h2> 
+                    <h2>Year: {products.year}</h2>
                     <h2>Model: {products.model} </h2>
-                    <h2>Make: {products.make}</h2>
-                    <h3>Year: {products.year}</h3>
+                    <h2>City Mpg: {products.min_city_mpg}</h2>
+                    <h2>Hwy Mpg: {products.min_hwy_mpg}</h2>
                     <h3>Cost: ${products.cost}</h3>
                     </div>
 
-                    <button onClick={(event) => {handleAddToCartButton(event, products)}}>Add to cart</button>
                     
                     <div className="car-image">
                       <img src={products.car} width="200" height="200"/>
-                      
+
                     </div>
  
                     </div>
+                    <button onClick={(event) => {handleAddToCartButton(event, products)}}>Add to cart</button>
 
                 </div>
             })

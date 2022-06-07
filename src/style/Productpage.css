@@ -1,6 +1,10 @@
 .content {
+
     border: 2px solid black;
     border-radius: 15px;
+    padding: 5px;
+    margin: 15px;
+    box-shadow: 2px 2px 2px 2px black;
 }
 
 .column {

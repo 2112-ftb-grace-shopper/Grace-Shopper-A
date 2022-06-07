@@ -66,9 +66,7 @@ useEffect(() => {
           <Route path='/miscAPIpage'>
             <MiscAPIpage />
           </Route>
-          <Route path='/adminpage'>
-            <Adminpage /> 
-          </Route>
+
         </Switch>
         </div>
 
@@ -83,6 +81,6 @@ useEffect(() => {
     </div>
 
   );
-};
+};  
 
 export default App;
