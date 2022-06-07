@@ -45,17 +45,10 @@ useEffect(() => {
                  <span>
                    <h1 class="techtwo"> Cars-R-Us!</h1>
                  </span>
-        <p>If you are a user, please login and browse our wares!</p>
-        <p>If not, please use the Register form in our navigation bar 
-          to create your profile and get started!</p>
-
-
         <div className='nav-bar'>
           <Navbar isLoggedIn={isLoggedIn} loggedInUsername={loggedInUsername} />
         <Switch>
-          <Route path='/searchbar'>
-            <Searchbar products={products} setProducts={setProducts} /> 
-          </Route>
+
           <Route path='/login'>
             <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} username={username} setUsername={setUsername} password={password} setPassword={setPassword} /> 
           </Route>
@@ -71,14 +64,14 @@ useEffect(() => {
           <Route path='/miscAPIpage'>
             <MiscAPIpage />
           </Route>
-          <Route path='/adminpage'>
-            <Adminpage /> 
-          </Route>
+
         </Switch>
         </div>
 
         </div>
-
+        <p>If you are a user, please login and browse our wares!</p>
+        <p>If not, please use the Register form in our navigation bar 
+          to create your profile and get started!</p>
         <Route path='/checkout'>
         <Checkout user={user} setUser={setUser} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}/>
         </Route>

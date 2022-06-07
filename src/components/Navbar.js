@@ -20,15 +20,15 @@ const Navbar = (props) => {
           <button>
             <Link to="/product"> Product Page </Link>
           </button>
-          <button>
+          {/* <button>
             <Link to="/searchbar"> Search Bar </Link>
-          </button>
+          </button> */}
           <button>
             <Link to="/shoppingcart"> Shopping Cart Page </Link>
           </button>
-          <button>
+          {/* <button>
             <Link to="/adminpage"> Admin Page</Link>
-          </button>
+          </button> */}
         </span>
       </div>
     </div>

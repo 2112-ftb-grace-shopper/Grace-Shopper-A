@@ -4,8 +4,7 @@ const express = require('express');
 const server = express();
 // call .env file
 const PORT = process.env.PORT || 4000;
-console.log(PORT)
-console.log(process.env)
+
 
 
 // enable cross-origin resource sharing to proxy api requests
