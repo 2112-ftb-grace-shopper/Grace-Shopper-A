@@ -71,9 +71,7 @@ useEffect(() => {
         </div>
 
         </div>
-        <p>If you are a user, please login and browse our wares!</p>
-        <p>If not, please use the Register form in our navigation bar 
-          to create your profile and get started!</p>
+
         <Route path='/checkout'>
         <Checkout user={user} setUser={setUser} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}/>
         </Route>
@@ -83,6 +81,6 @@ useEffect(() => {
     </div>
 
   );
-};
+};  
 
 export default App;

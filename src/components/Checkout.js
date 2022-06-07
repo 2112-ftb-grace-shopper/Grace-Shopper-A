@@ -12,8 +12,10 @@ const Checkout = (props) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [confirm, setConfirm] = useState(false);
     const [address, setAddress] = useState('')
+    const [zipCode, setZipCode] = useState('')
 
     const [creditCard, setCreditCard] = useState('')
+    const [cvv, setCvv] = useState('')
 
     const {user, setUser, username, setUsername, password, setPassword, shoppingCart, setShoppingCart } = props;
 
@@ -86,6 +88,11 @@ const Checkout = (props) => {
         setAddress(event.target.value);
     }
 
+    const handleZipCodeChange = (event) => {
+        event.preventDefault();
+        setZipCode(event.target.value);
+    }
+
         const handleSubmit = (event) => {
         
             event.preventDefault();
@@ -94,6 +101,7 @@ const Checkout = (props) => {
             setEmail('');
             setPhoneNumber('');
             setAddress('')
+            setZipCode('')
             console.log('submitbuttonclicked')
             if(!firstName){
                 alert('please enter a first name');
@@ -123,16 +131,41 @@ const Checkout = (props) => {
             } else{
                 localStorage.setItem('address', address)
             }
+
+            if(!zipCode){
+                alert('Please enter a zip code')
+            } else{
+                localStorage.setItem('zip code', zipCode)
+            }
             setConfirm(true)
         }
 
-        const handleCreditCardSubmit =(event) => {
+        const handleCreditCardChange =(event) => {
             event.preventDefault();
             setCreditCard(event.target.value);
         }
-        
-        
- 
+
+        const handleCvvChange = (event) => {
+            event.preventDefault();
+            setCvv(event.target.value);
+        }
+
+        const handleCreditCardSubmit =(event) => {
+            event.preventDefault()
+            setCreditCard('');
+            setCvv('');
+
+            if(!creditCard){
+                alert('Please enter a valid credit card');
+            }
+
+            if(!cvv){
+                alert('Please enter a cvv value');
+            }
+            alert('Congratulations! Your car is on its way!')
+        }
+
+
     const taxRate = (shoppingCart) => {
        // return null if no cart exists
         if(!shoppingCart){
@@ -194,6 +227,10 @@ const Checkout = (props) => {
             <div>
                 <input type = 'text' placeholder="Address" value={address} onChange={handleAddressChange}/>
             </div>
+            <div>
+            <input type = 'text' placeholder="Zip Code" value={zipCode} onChange={handleZipCodeChange}/>
+
+            </div>
         </div>
 
         <button type="submit" onClick={handleSubmit}>
@@ -208,13 +245,24 @@ const Checkout = (props) => {
             <h2>Please enter your payment information</h2>
             <p>Shipping to:</p>
             <>
-            {localStorage.getItem('firstname')};
-            {localStorage.getItem('lastname')}
-            {localStorage.getItem('address')}
-            </>
-            <input type='text' placeholder="Credit Card Number"></input>
+            <div>
+            {localStorage.getItem('firstname')} {localStorage.getItem('lastname')}
+            </div>
+            <div>
+            {localStorage.getItem('address')} {localStorage.getItem('zip code')}
+        
+            </div>
 
-            <input type='text'></input>
+
+
+            </>
+            <input type='text' placeholder="Credit Card Number" value={creditCard} onChange={handleCreditCardChange}></input>
+
+            <input type='text' placeholder="Cvv" value={cvv} onChange={handleCvvChange}></input>
+
+            <button type="submit" onClick={handleCreditCardSubmit}>
+             confirm payment
+        </button>
         </div>:null}
             <span>
             {
@@ -229,6 +277,11 @@ const Checkout = (props) => {
    
             }
              </span>
+             <button>
+            <Link to ='/shoppingCart'>
+                Back to Cart
+            </Link>
+           </button>
 
             </form>
 

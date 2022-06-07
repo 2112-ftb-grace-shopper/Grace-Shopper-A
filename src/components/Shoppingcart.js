@@ -28,18 +28,6 @@ const Shoppingcart = (props) => {
     const username = localStorage.getItem('Username');
 
 
-    // const addProductToLoggedInCart = async () => {
-    //     const product = await getAllProducts();
-
-    //     // new cart state with products inside
-    //     const newCart = [ ...shoppingCart, product ];
-
-    //     setShoppingCart(newCart)
-    // }
-
-    // need to be able to add the product that is on localStorage or logged in user to shoppingCart object
-
-
         console.log('SHOPPING CART ===>', shoppingCart);
     return (
 

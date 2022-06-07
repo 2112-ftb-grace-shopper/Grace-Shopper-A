@@ -49,7 +49,7 @@ const Productpage = (props) => {
 
         // is returning alert, even when having userToken and credentials in localStorage
         if(!isLoggedIn) {
-            alert('Please login to purchase an automobile');
+            alert('Woo! A car has been added to your cart!');
         } else {
             handleAddToCartButton();
         }
