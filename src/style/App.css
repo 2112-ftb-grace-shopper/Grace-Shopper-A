@@ -11,9 +11,12 @@ html, body {
 body > * {
   flex-shrink: 0;
   background-color: #414a4c;
-  background-image: url('../assets/images/fecar.avif');
-  background-size: contain;
-  background-repeat: no-repeat;
+  background-image: url('../assets/images/fecar.avif'), url('../assets/images/hppic.jpg');
+  background-position: left, right;
+  background-size: contain, contain;
+  background-repeat: no-repeat, no-repeat;
+  width: 100%;
+  display: flex;
 }
 
 .techone{
@@ -41,7 +44,7 @@ display: block;
   border-right: solid 1px black;
   -webkit-box-shadow: 1px 0px 3px 6px rgba(0,0,0,0.58); 
   box-shadow: 1px 0px 3px 6px rgba(0,0,0,0.58);
-  background-color: #c9d4df;
+  background-color: #376b30;
   opacity: 100%;
 }
 
