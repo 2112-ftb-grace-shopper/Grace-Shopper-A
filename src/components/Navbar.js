@@ -1,11 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import '../style/Navbar.css';
-
-
+import React from "react";
+import { Link } from "react-router-dom";
+import "../style/Navbar.css";
 
 const Navbar = (props) => {
-        const {isLoggedIn, setIsLoggedIn} = props;
+  const { isLoggedIn, setIsLoggedIn } = props;
 
         
     return (
@@ -13,6 +11,9 @@ const Navbar = (props) => {
       {/* <p> Cars R Us</p> */}
       <div>
         <span class="material-bubble">
+          <button>
+            <Link to="/"> Home </Link>
+          </button>
           <button>
             <Link to="/login"> Login Page </Link>
           </button>
@@ -23,13 +24,7 @@ const Navbar = (props) => {
             <Link to="/product"> Product Page </Link>
           </button>
           <button>
-            <Link to="/searchbar"> Search Bar </Link>
-          </button>
-          <button>
             <Link to="/shoppingcart"> Shopping Cart Page </Link>
-          </button>
-          <button>
-            <Link to="/adminpage"> Admin Page</Link>
           </button>
         </span>
       </div>
@@ -37,4 +32,4 @@ const Navbar = (props) => {
     )
 }
 
-export default Navbar
+export default Navbar;
