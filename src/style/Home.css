@@ -1,0 +1,7 @@
+.homepic {
+    width: 500px;
+    height: 300px;
+    border-radius: 15%;
+    border: solid black 1px;
+    margin-top: 15vh;
+}
