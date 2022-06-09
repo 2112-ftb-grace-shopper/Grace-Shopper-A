@@ -12,11 +12,14 @@ body > * {
   flex-shrink: 0;
   background-color: #414a4c;
   background-image: url('../assets/images/fecar.avif'), url('../assets/images/hppic.jpg');
-  background-position: left, right;
-  background-size: contain, contain;
-  background-repeat: no-repeat, no-repeat;
+  top: 0;
   width: 100%;
   display: flex;
+  background-attachment: fixed, fixed;
+  background-position: center left, center right;
+  background-repeat: no-repeat, no-repeat;
+  background-size: 50%, 85%;
+
 }
 
 .techone{
@@ -46,6 +49,7 @@ display: block;
   box-shadow: 1px 0px 3px 6px rgba(0,0,0,0.58);
   background-color: #376b30;
   opacity: 100%;
+  
 }
 
 *, *::after, *::before {
